@@ -38,8 +38,73 @@ app.listen(3000, async () => {
   await open('http://localhost:3000',{app:{name:"/usr/bin/firefox-esr"}});
 });
 
+
+app.get("/", (req,res) => {
+
+  res.send("Server is running");
+
+})
+
+
+app.post("/register", async (req,res) => {
+
+  try{
+
+      const {firstname, lastname,email, password} = req.body
+      if(!(firstname && lastname && email && password) ){
+
+          res.status(400).send("Kindly fill all the required fileds");
+      
+
+      }
+
+      const alreadyRegistred = await userInfo.findOne({email})
+          if(alreadyRegistred) {
+              res.status(400).send("User already exists with this email address");
+
+          }
+
+          //password encryption
+          const encryptedPass = await bcrypt.hash(password,10)
+          
+          const user = await User_db.create({
+
+              firstname,
+              lastname,
+              email,
+              password: encryptedPass
+      
+          })
+
+          //To generate token
+
+          const token = jwt.sign(
+              {
+
+                  id: user._id,email
+
+              }
+
+
+          )
+          
+
+
+      }
+  catch(error){
+
+      console.log(error)
+
+
+  }
+})
+  
+
 app.post("/shutdown",async (req,res) => {
   console.log("Server is shut down!")
   res.send("Server will now shut down!");
   process.exit(0);
-});
+
+
+  
+})
