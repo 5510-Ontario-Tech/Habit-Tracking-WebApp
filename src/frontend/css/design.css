@@ -219,22 +219,13 @@ span{
    
 }
 .navbar-right{
-<<<<<<< HEAD
-    margin: 20px;
-=======
     margin-right: 20px;
->>>>>>> b3cf864e696758f9e8299c8f6d5342ca03da4eeb
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: flex-end;
     gap: 10px;
-<<<<<<< HEAD
-    
-    
-=======
     padding: 2px 2px 2px 2px;
->>>>>>> b3cf864e696758f9e8299c8f6d5342ca03da4eeb
 }
 .navbar a{
     float: left;
