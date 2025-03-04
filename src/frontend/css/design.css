@@ -11,7 +11,7 @@
     align-items: center;
     height: 100vh;
     background-color: chocolate;
-    background: linear-gradient(to top,#552200, #1e36d6);
+    background: radial-gradient(circle, rgb(60, 85, 120) 0%, rgb(47, 77, 122) 50%, rgb(80, 30, 79) 100%);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
