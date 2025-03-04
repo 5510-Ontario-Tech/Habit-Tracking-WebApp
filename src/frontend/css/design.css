@@ -137,10 +137,9 @@ input{
     outline: 2px;
 }
 button{
-    padding: 10px;
-    width: 50%;
-    margin: 10px;
-    margin-left: 100px;
+    padding: 10px 30px;
+    width: auto;
+    margin: 20px 10px 10px 10px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -148,7 +147,7 @@ button{
     color: white;
     font-size: 15px;
     border:rgb(1, 0, 0);
-    border-radius: 5px;
+    border-radius: 10px;
     cursor:pointer;
 }
 button:hover{
@@ -217,12 +216,13 @@ span{
     gap: 10px;
 }
 .navbar-right{
-    margin-right: 10px;
+    margin-right: 20px;
     display: flex;
     flex-direction: row;
+    flex-wrap: nowrap;
     justify-content: flex-end;
     gap: 10px;
-    padding: auto;
+    padding: 2px 2px 2px 2px;
 }
 .navbar a{
     float: left;
