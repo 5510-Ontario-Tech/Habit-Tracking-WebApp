@@ -10,8 +10,12 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
+<<<<<<< HEAD
     background-color: chocolate;
     background: radial-gradient(circle, rgb(60, 85, 120) 0%, rgb(47, 77, 122) 50%, rgb(80, 30, 79) 100%);
+=======
+    background-image: url('src/frontend/assets/homepage_background.webp');
+>>>>>>> b3cf864e696758f9e8299c8f6d5342ca03da4eeb
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -45,21 +49,20 @@
     outline: 5px solid orange;
     display: flex;
     flex-direction: column;
-    margin: 2% 1% 2% 20%;
+    margin: 5% 40% 10% 40%;
     justify-content: center;
     align-items: center;
     width: 50%;
     height: 100%;
-    background-color: chocolate;
-    background: linear-gradient(to top,#552200, #0022fb);
+    background-image: url('src/frontend/assets/design_app_wall.svg');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-    overflow: hidden;
     font-family: Arial, Helvetica, sans-serif;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     outline-offset: 20px;
     outline-style: auto;
+    overflow-y: auto;
     height: 100vh;
 }
 .login-container{
@@ -76,7 +79,7 @@
 }
 .register-container{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     width: 100%;
     height: 100%;
     padding: auto;
@@ -85,8 +88,7 @@
     justify-content: center;
     align-items: center;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    overflow-y: auto;
-    
+    margin: 10px 10px 10px 10px;
 }
 
 /*.left-panel{
@@ -142,10 +144,9 @@ input{
     outline: 2px;
 }
 button{
-    padding: 10px;
-    width: 50%;
-    margin: 10px;
-    margin-left: 100px;
+    padding: 10px 30px;
+    width: auto;
+    margin: 20px 10px 10px 10px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -153,7 +154,7 @@ button{
     color: white;
     font-size: 15px;
     border:rgb(1, 0, 0);
-    border-radius: 5px;
+    border-radius: 10px;
     cursor:pointer;
 }
 button:hover{
@@ -212,21 +213,33 @@ span{
     background: linear-gradient(135deg, #007bff, #00d4ff);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     border-radius: 20px;
+    z-index: 1000;
 }
 .navbar-left{
     margin-right: 20px;
     display: flex;
+    flex-direction: row;
     justify-content: flex-start;
     gap: 10px;
    
 }
 .navbar-right{
+<<<<<<< HEAD
     margin: 20px;
+=======
+    margin-right: 20px;
+>>>>>>> b3cf864e696758f9e8299c8f6d5342ca03da4eeb
     display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
     justify-content: flex-end;
     gap: 10px;
+<<<<<<< HEAD
     
     
+=======
+    padding: 2px 2px 2px 2px;
+>>>>>>> b3cf864e696758f9e8299c8f6d5342ca03da4eeb
 }
 .navbar a{
     float: left;
@@ -244,8 +257,9 @@ span{
     background-color: #04AA6D;
     color: greenyellow;
 }
-.register-button{
-    color: aqua;
+.navbar-image{
+    margin: 2% 4% 4% 4%;
+    padding: 1% 1% 1% 1%;
 }
 .horizontal-divider{
     display: flex;
@@ -264,9 +278,9 @@ span{
     color: purple;
 }
 .vertical-divider{
-    display:contents;
-    justify-content: space-between;
-    align-items: center;
-    width: 1px;
-    background-color: brown;
+    height: 500px; 
+    width: 1px; 
+    background-color: #000; 
+    display: inline-block;
+    margin: 10px 10px 10px 10px;
 }
