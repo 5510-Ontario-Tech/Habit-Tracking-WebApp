@@ -48,10 +48,9 @@ app.get("*", (req, res) => {
 
 app.listen(3000, async () => {
   console.log('Running on http://localhost:3000')
-  await open('http://localhost:3000',{app:{name:"/usr/bin/firefox-esr"}});
+  await open('http://localhost:3000',{app:{name:"C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe"}});
 });
 
-<<<<<<< HEAD
 
 app.get("/", (req,res) => {
 
@@ -113,18 +112,6 @@ app.post("/register", async (req,res) => {
   }
 })
   
-=======
-async function connectDB() {
-  try{
-    await client.connect();
-    console.log("Connected to mongoDB!");
-  }
-  catch(error){
-    console.error("Connection failed: ",error);
-  }
-}
-connectDB();
->>>>>>> b3cf864e696758f9e8299c8f6d5342ca03da4eeb
 
 app.post("/shutdown",async (req,res) => {
   console.log("Server is shut down!")

@@ -10,12 +10,7 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-<<<<<<< HEAD
-    background-color: chocolate;
-    background: radial-gradient(circle, rgb(60, 85, 120) 0%, rgb(47, 77, 122) 50%, rgb(80, 30, 79) 100%);
-=======
     background-image: url('src/frontend/assets/homepage_background.webp');
->>>>>>> b3cf864e696758f9e8299c8f6d5342ca03da4eeb
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
