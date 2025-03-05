@@ -3,9 +3,6 @@
     padding: 0;
     box-sizing: border-box;
 }
-body{
-    background-image: url('/src/frontend/assets/website_background2.jpg');
-}
 .home-body{
     outline: 5px solid orange;
     display: flex;
@@ -13,7 +10,7 @@ body{
     justify-content: center;
     align-items: center;
     height: 100vh;
-    /* background-image: url('C:/Users/Parnian/Desktop/Habit management/Habit-Tracking-WebApp/src/frontend/assets/website_background2.jpg'); */
+    background-image: url('src/frontend/assets/homepage_background.webp');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -107,7 +104,7 @@ body{
     justify-content: center;
 }
 h2{
-    color:darkblue;
+    color: blueviolet;
     font-size: xx-large;
     font-weight: bold;
     font-family: Algerian, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
@@ -163,12 +160,12 @@ button:hover{
     white-space: nowrap;
     background-color: rgb(99, 71, 126);
     border: black;
-    border-width: 10px;
+    border-width: 1px;
     cursor:pointer;
-    border-radius: 20px;
+    border-radius: 30px;
     margin: 4% 5% 4% 5%;
     text-align: center;
-    padding: 4% 4% 4% 4%;
+    
     font-size: 15px;
     display: inline-block;
 }
@@ -206,15 +203,15 @@ span{
     overflow: auto;
     display: flex;
     flex-direction: row;
-    margin: 7px;
+    margin: 10px;
     justify-content: space-between;
     background: linear-gradient(135deg, #007bff, #00d4ff);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    border-radius: 10px;
+    border-radius: 20px;
     z-index: 1000;
 }
 .navbar-left{
-    margin-right: 30px;
+    margin-right: 20px;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -225,12 +222,10 @@ span{
     margin-right: 20px;
     display: flex;
     flex-direction: row;
-    flex-wrap: nowrap; 
+    flex-wrap: nowrap;
     justify-content: flex-end;
     gap: 10px;
-    padding: 2% 2% 2% 5%;
-    
-
+    padding: 2px 2px 2px 2px;
 }
 .navbar a{
     float: left;
@@ -274,104 +269,4 @@ span{
     background-color: #000; 
     display: inline-block;
     margin: 10px 10px 10px 10px;
-}
- .review-container{ 
-   
-    max-width: 1200px;
-    border-radius: 10px;
-    margin: 45% 2% 2% 10%; 
-    background-color: white;
-    padding: 20px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-}
-.review-sections{
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap:20px;
- 
-}
-.review-box{
-  background-color: #fff;
-  padding: 20px;
-  border: 2px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-  text-align:center;
-}
-.profile-pic{
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-bottom: 10px;
-}
-.username {
-    font-weight: bold;
-    color: #333;
-}
-.stars {
-    color: gold;
-}
-
-/* Responsive for smaller screens */
-@media (max-width: 768px) {
-    .review-sections {
-        grid-template-columns: 1fr;
-    }
-}
-.slider{
-    position:absolute;
-    width: 90%;
-    overflow: hidden;
-    transform: translate(-50%,-50%);
-    top: 60%;
-    left: 50%;
-    border-radius: 10px;
-   
-}
-
-.slide{
-   
-    
-    position: relative;
-    width: 100%;
-    height: 550px;
-    animation: slide 16s infinite;
-    
-   
-}
-.slide img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-   
-}
-.prev , .next{
-    position: absolute;
-    top:50%;
-    transform: translateY(-50%);
-    padding: 10px;
-    z-index: 10;
-    font-size: 20px;
-    cursor: pointer;
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
-    border: none;
-
-}
-.prev {
-    top:50%;
-   
-}
-
-.next {
- margin: 2% 20% 2% 95%;
-}
-.slide .text{
-    position: absolute;
-    top:50%;
-    font-size:24px;
-    color: #fff;
-    right: 70%;
-
 }
