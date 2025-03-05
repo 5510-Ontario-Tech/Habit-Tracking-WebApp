@@ -26,8 +26,9 @@ console.log("Static Path : ",staticPath);
 app.use(express.static(appPath));
 app.use('/css',express.static(staticPath));
 app.use(cors());
+app.use(express.static(path.join(__dirname, 'assests')));
 app.use(express.static(__dirname,{
-  extensions:["webp","jpg","svg"],
+  extensions:["webp","jpg","svg","png"],
 }));
 app.get("/", (req,res) => {
   const pageName = req.params.pageName;
