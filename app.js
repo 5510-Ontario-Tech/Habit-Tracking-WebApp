@@ -18,7 +18,7 @@ const app = express();
 const appPath = process.env.APP_PATH ? path.resolve(process.env.APP_PATH) : path.join(__dirname,"frontend","pages");
 const staticPath = process.env.STATIC_PATH ? path.resolve(process.env.STATIC_PATH) : path.join(__dirname,"css");
 const mongoURI = "mongodb://shah:shah@localhost:27017/habitude_1?authSource=admin";
-
+const db = mongoose.connect(mongoURI);
 const client = new MongoClient(mongoURI);
 
 console.log("App Path : ",appPath);
