@@ -1,41 +1,39 @@
 import mongoose from "mongoose";
 
-const schema = new mongoose.schema({
-    name:{
-        type:String,
-        required:true
-    },
-    email:{
-        type:String,
-        required:true,
-        unique:true
-    },
-    password:{
-        type:String,
-        required:true
-    },
-    birthdate:{
-        type:Date,
-        required:true
-    },
-    city:{
-        type:String,
-
-    },
-    province:{
-        type:String,
-    },
-    country:{
-        type:String,
-    },
-    isVerified:{
-        type:Boolean,
-        default:false
-    },
-    verificationToken:{
-        type:String,
-        default:null
-    }
+const clientSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+  birthdate: {
+    type: Date,
+    required: true,
+  },
+  city: {
+    type: String,
+  },
+  province: {
+    type: String,
+  },
+  country: {
+    type: String,
+  },
+  isVerified: {
+    type: Boolean,
+  },
+  verificationToken: {
+    type: String,
+  },
 });
 
-module.exports = mongoose.model('User',userSchema)
+export default mongoose.model("userDb", clientSchema);
+
