@@ -8,9 +8,10 @@
     <script src="/src/frontend/js/jquery-3.7.1.min.js"></script>
 </head>
 <body style="color: aquamarine">
+   
     <nav class="navbar">
         <div class="navbar-left">
-            <img class="navbar-image" src="/src/frontend/assets/logo-habitude.svg"/>
+            <img class="navbar-image" src="/src/frontend/assets/logo_app.svg"/>
             <button class="navigation-buttons active" onclick="window.location.href='homepage.html'">Home</button>
             <button class="navigation-buttons active" onclick="window.location.href='dashboard.html'">Dashboard</button>
             <button class="navigation-buttons active" onclick="window.location.href='aboutus.html'">About Us</button>
@@ -21,11 +22,49 @@
             <button class="navigation-buttons active" onclick="window.location.href='register.html'">Register</button>
         </div>
     </nav>
-    <div class="home-body">
-        <img src="/src/frontend/assets/website_background.jpg" style="width: 100%; height: 100%;">
-    </div>
-    <div class="home-body" style="margin-top:20px;">
-        <img src="/src/frontend/assets/homepage_background.jpg" style="width: 100%; height: 100%;">
-    </div>
+    <div class="slider">
+       
+        <div class="slide">
+                 <img src="/src/frontend/assets/slider.jpg">
+                 <div class="text-1">Transform your daily routines, </div>
+                 <div class="text-2"> build lasting habits, </div>                    
+                 <div class="text-3"> and achieve your goals with ease! </div>  
+         </div>
+         
+         <button class="prev" onclick="changeSlide(-1)">&#10094;</button>
+         <button class="next" onclick="changeSlide(-1)">&#10095;</button>
+     </div>
+<!-- <div class="home-body"> 
+ <img src="" style="width: 100%; height: 100%;"> </div>-->
+    
+  
+    <!-- <div class="home-body" style="margin-top:20px;"> -->
+        
+    <!-- </div> -->
     <script src="/src/frontend/js/jquery-3.7.1.min.js"></script>
+  <div class="review-container">
+    <h2>User Ideas About Our Website</h2>
+    <div class="review-sections">
+        <div class="review-box">
+            <img class="profile-pic" src="/src/frontend/assets/user_icon.png" alt="User">
+            <p class="username">Parnia</p>
+            <p class="stars">⭐⭐⭐⭐⭐</p>
+            <p>"I love the clean design! This website helps me in building good habits."</p>
+        </div>
+        <div class="review-box">
+            <img class="profile-pic" src="/src/frontend/assets/user_icon.png" alt="User">
+            <p class="username">Devam</p>
+            <p class="stars">⭐⭐⭐⭐</p>
+            <p>"I love this website and I follow my habit everyday!"</p>
+        </div>
+        <div class="review-box">
+            <img class="profile-pic" src="/src/frontend/assets/user_icon.png" alt="User">
+            <p class="username">Shivam</p>
+            <p class="stars">⭐⭐⭐⭐</p>
+            <p>"Great!"</p>
+        </div>
+        
+    </div>
+  </div>
+
 </body>
