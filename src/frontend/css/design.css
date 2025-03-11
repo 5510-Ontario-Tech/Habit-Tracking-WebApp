@@ -364,22 +364,22 @@ span{
 }
 
 .next {
- margin: 2% 20% 2% 95%;
+ margin: 2% 20% 2% 98%;
 }
 .slide .text-1{
     position: absolute;
-    top:50%;
-    font-size:35px;
+    top:40%;
+    font-size:45px;
     color: goldenrod;
-    right: 17%;
+    right: 12%;
     font-weight: bold;
     font-style: italic;
 
 }
 .slide .text-2{
     position: absolute;
-    top:60%;
-    font-size:35px;
+    top:55%;
+    font-size:41px;
     font-weight: bold;
     color: goldenrod;
     right: 22%;
@@ -388,10 +388,10 @@ span{
 }
 .slide .text-3{
     position: absolute;
-    top:70%;
-    font-size:35px;
+    top:70;
+    font-size:41px;
     color: goldenrod;
-    right: 15%;
+    right: 10%;
     font-weight: bold;
     font-style: italic;
 
@@ -410,4 +410,60 @@ span{
         }
        
     }
-   
+    .dashboard-container{
+        width: 95%;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        margin: 2% 2% 2% 2%;
+        height: 1000px;
+    }
+    .sidebar{
+        background-color: #f2f2f2;
+        width: 250px;
+        height: 900px;
+        margin-left: 1%;
+        margin-top: 3%;
+        /* display: flex; */
+        flex-direction: column;
+        justify-content: flex-start;
+        border-radius: 10px;
+
+    }
+    .dashboard-sidebar ul{
+        list-style-type: none;
+        margin-top: 20px;
+    }
+    .dashboard-sidebar li{
+        margin: 15px 0;
+        font-family: sans-serif;
+
+    }
+    .dashboard-sidebar li a{
+        color:black;
+        text-decoration: none;
+        font-size: 1.1em;
+        margin-top: 50%;
+        padding: 90% 2% 2% 2%;
+    }
+    .icon{
+        color: black;
+        width: 30px;
+        height: 30px;
+        margin-top: 20%;
+        
+    }
+    .profile-picD{
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-bottom: 10px;
+        margin-top:10%;
+        margin-left: 20%;
+
+    }
+   .username-dashboard{
+    margin: 2% 2% 2% 7%;
+    color: #000;
+   }
