@@ -30,7 +30,6 @@ export const signup = async (req, res) => {
       email,
       password: hashPassword,
     });
-    console.log("saving 1", newUser);
 
 
 
