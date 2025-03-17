@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 const nodemailer = require('nodemailer');
-const User = require('../models/modelschema');
+const User = require('../database/schema');
 
 const router = express.Router();
 
@@ -41,7 +41,7 @@ router.post('/register', async (req, res) => {
             from: 'YOUR_EMAIL@gmail.com',
             to: email,
             subject: 'Verify Your Email',
-            html: `<p>Click this link to verify your email: <a href="${verificationLink}">${verificationLink}</a></p>`
+            html: `<p>Hi! We have noticed a sign up attempt from your side. To make sure it's you; please click this link to verify your email: <a href="${verificationLink}">${verificationLink}</a></p>`
         };
 
         transporter.sendMail(mailOptions, (error, info) => {
@@ -76,8 +76,7 @@ router.get('/verify-email', async (req, res) => {
         user.isVerified = true;
         user.verificationToken = null;
         await user.save();
-
-        return res.redirect('/login.html');
+        return res.redirect('/signin.html');
     } catch (error) {
         console.error('Error verifying email:', error);
         return res.status(500).send('Internal server error.');

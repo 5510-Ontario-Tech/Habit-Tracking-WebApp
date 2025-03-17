@@ -7,6 +7,7 @@ import fs from 'fs';
 import mongoose from 'mongoose';
 import {MongoClient} from 'mongodb';
 import cors from 'cors';
+import User from './src/backend/models/modelschema.js';
 dotenv.config();
 const router = express.Router();
 fs.promises;
@@ -18,7 +19,7 @@ const app = express();
 const appPath = process.env.APP_PATH ? path.resolve(process.env.APP_PATH) : path.join(__dirname,"frontend","pages");
 const staticPath = process.env.STATIC_PATH ? path.resolve(process.env.STATIC_PATH) : path.join(__dirname,"css");
 const mongoURI = "mongodb://shah:shah@localhost:27017/habitude_1?authSource=admin";
-const db = mongoose.connect(mongoURI);
+// const appDB = mongoose.connect(mongoURI);
 const client = new MongoClient(mongoURI);
 
 console.log("App Path : ",appPath);
@@ -49,6 +50,7 @@ app.get("*", (req, res) => {
 app.listen(3000, async () => {
   console.log('Running on http://localhost:3000')
   await open('http://localhost:3000',{app:{name:"/usr/bin/firefox-esr"}});
+  await open(mongoURI,{app:{name:"/usr/bin/firefox-esr"}});
 });
 
 async function connectDB() {
@@ -61,6 +63,13 @@ async function connectDB() {
   }
 }
 connectDB();
+
+const newUser = new User(
+  {name : "Edith",
+  email : "abc@example.com",
+  password:"Abc#12345",
+  birthdate:1093938382
+})
 
 app.post("/shutdown",async (req,res) => {
   console.log("Server is shut down!")
