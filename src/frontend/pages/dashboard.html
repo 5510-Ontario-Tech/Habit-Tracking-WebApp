@@ -33,16 +33,54 @@
                 </div>
                 <nav class="dashboard-sidebar">
                     <ul>
-                        <li><img class="icon" src="/src/frontend/assets/home.png" alt="home"><a href="#">Dashboard</a></i></li>
-                        <li><img class="icon" src="/src/frontend/assets/lifestyle.png" alt="lifestyle"><a href="#">My Habits</a></li>
-                        <li><img class="icon" src="/src/frontend/assets/refresh.png" alt="refresh"><a href="#">Update Habits</a></li>
-                        <li><img class="icon" src="/src/frontend/assets/delete.png" alt="delete"><a href="#">Delete Habits</a></li>
-                        <li><img class="icon" src="/src/frontend/assets/web-page.png" alt="setting"><a href="#">Setting</a></li>
+                        <li><img class="icon" src="/src/frontend/assets/home.png" alt="home"><button class="sidebar-btn" onclick="showSection('section1')">Dashboard</a></i></li>
+                        <li><img class="icon" src="/src/frontend/assets/lifestyle.png" alt="lifestyle"><button class="sidebar-btn" onclick="window.location.href='#'">My Habits</a></li>
+                        <li><img class="icon" src="/src/frontend/assets/refresh.png" alt="refresh"><button class="sidebar-btn" onclick="window.location.href='#'">Update Habits</a></li>
+                        <li><img class="icon" src="/src/frontend/assets/delete.png" alt="delete"><button class="sidebar-btn" onclick="window.location.href='#'">Delete Habits</a></li>
+                        <li><img class="icon" src="/src/frontend/assets/web-page.png" alt="settings"><a href="#">settings</a></li>
                         <!-- <li><a href="#">Streaks</a></li> -->
                     </ul>
                 </nav>
             </aside>
+           <main>
+         <section id="dashboard">
+            <h2 class="main">Dashboard</h2>
+            <div class="habit-summary">
+                <div class="summary-card">
+                    <h3>Total Habits</h3>
+                    <p id="total-habits">0</p>
+                </div>
+                <div class="summary-card">
+                    <h3>Habits Completed</h3>
+                    <p id="completed-habits">0</p>
+                </div>
+                <div class="summary-card">
+                    <h3>Progress</h3>
+                    <p id="habit-progress">0%</p>
+                </div>
+            </div>
+        </section>
+       
+        <div id="habits">
+            <h2 class="main">My Habits</h2>
+            <form id="habit-form">
+                <input type="text" id="habit-input" placeholder="New Habit" required>
+                <button class="add-habit" type="submit">Add Habit</button>
+            </form>
+            <ul id="habit-list"></ul>
         </div>
+
+        <section id="statistics">
+            <h2 class="main">Statistics</h2>
+            <canvas id="habit-chart"></canvas>
+        </section>
+
+        <section id="settings">
+            <h2 class="main">Settings</h2>
+            <button id="logout-btn">Logout</button>
+        </section>
+     
+    </main>
     </div>
 </body>
 </html>

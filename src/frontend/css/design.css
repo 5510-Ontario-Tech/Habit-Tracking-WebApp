@@ -388,7 +388,7 @@ span{
 }
 .slide .text-3{
     position: absolute;
-    top:70;
+    top:70%;
     font-size:41px;
     color: goldenrod;
     right: 10%;
@@ -417,6 +417,7 @@ span{
         box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
         margin: 2% 2% 2% 2%;
         height: 1000px;
+        display:flex;
     }
     .sidebar{
         background-color: #f2f2f2;
@@ -439,11 +440,19 @@ span{
         font-family: sans-serif;
 
     }
+    .sidebar-btn{
+        color:black;
+        text-decoration: none;
+        font-size: 1.1em;
+        margin-top: 30%;
+        padding: 1% 2% 2% 2%;
+        border: none;
+    }
     .dashboard-sidebar li a{
         color:black;
         text-decoration: none;
         font-size: 1.1em;
-        margin-top: 50%;
+        margin-top: 30%;
         padding: 90% 2% 2% 2%;
     }
     .icon{
@@ -467,3 +476,69 @@ span{
     margin: 2% 2% 2% 7%;
     color: #000;
    }
+   main {
+    flex-grow: 1;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+ .main {
+    border-bottom: 2px solid ;
+    padding-bottom: 10px;
+}
+
+.habit-summary {
+    display: flex;
+    justify-content: space-between;
+}
+
+.summary-card {
+    background: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    flex: 1; 
+    margin: 10px;
+}
+
+#habit-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+#habit-list li {
+    background: #fff;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+#logout-btn {
+    background: #dc3545;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 30%;
+}
+button.delete-habit{
+    background-color: red;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+.add-habit{
+    background-color :#1338be;
+    color: goldenrod;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    font-weight: bold;
+    font-size: medium;
+}
