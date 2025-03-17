@@ -57,13 +57,6 @@ mongoose
   .catch((err) => console.log(err));
 
 
-
-app.use('/', (req, res) =>{
-  res.json({ message:  'connected'})
-
-})
-
-
 app.use("/api/auth", authRouter);
 
 
