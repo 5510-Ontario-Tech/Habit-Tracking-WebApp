@@ -9,13 +9,9 @@
     </head>
     <body class="signin-body">
         <div class="login-container">
-            <div class="left-panel">
-                <img src="/src/frontend/assets/design_app_wall.svg">
-            </div>
-            <div class="vertical-divider"></div>
           <div class="right-panel">
             <h2>Login</h2>
-            <form action="#" id="loginform" method="post">
+            <form id="loginform">
                 <div class="input-group">
                     <label for="email">Enter your Email:</label>
                     <input type="text" id="email" placeholder="E-mail" required>
@@ -42,6 +38,36 @@
         </div>
     </div>
     <script src="src/frontend/js/jquery-3.7.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#loginform").submit(function (event) {  // event handler to submit attached
+                event.preventDefault();  // Prevent the default form submission
+
+                const email = $("#email").val();
+                const password = $("#password").val();
+                const errorMessage = $("#error-message");  // Cache the error message element
+
+                $.ajax({
+                    url: '/auth/signin',  //Backend sign in page.
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ email: email, password: password }),
+                    success: function (data) {
+                        // Handle success
+                        console.log("Login successful:", data);
+                        localStorage.setItem('jwtToken', data.token); //Save the token.
+                        window.location.href = "/dashboard.html";
+
+                    },
+                    error: function (xhr, status, error) {
+                        // Handle errors
+                        console.error("Login error:", xhr);
+                        errorMessage.text("Invalid email or password");
+                    }
+                });
+            });
+        });
+    </script>
 </body>
    
 </html>

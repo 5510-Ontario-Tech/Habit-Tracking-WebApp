@@ -1,52 +1,54 @@
-async function requestAppLogin() {
+async function requestRegister() {
+    const name = document.getElementById('name').value;
     const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
     const msg = document.getElementById('message');
     try {
-        const response = await fetch('/api/request-login-link', {
+        const response = await fetch('/auth/register', {  //  <-- Correct URL prefix
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ email: email })
+            body: JSON.stringify({ name: name, email: email, password: password })
         });
 
         const result = await response.json();
         message.textContent = result.message;
 
         if (response.ok) {
-            document.getElementById('email-form').style.display = 'none'; // Hide the form
+            localStorage.removeItem('jwtToken');
+            window.location.href = "/homepage.html";
         }
     } catch (error) {
-        console.error('Error requesting login link:', error);
-        message.textContent = 'An error occurred. Please try again.';
+        console.error('Error requesting login:', error);
+        msg.textContent = 'An error occurred. Please try again.';
     }
 }
 
-window.onload = async function() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const token = urlParams.get('token');
+async function requestAppLogin() {
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value; // Get the password
+    const msg = document.getElementById('message');
+    try {
+        const response = await fetch('/auth/signin', {  //  <-- Correct URL prefix
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email: email, password: password }) // Send email and password
+        });
 
-    if (token) {
-        try {
-            const response = await fetch('/api/verify-jwt', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ token: token })
-            });
+        const result = await response.json();
+        message.textContent = result.message;
 
-            const result = await response.json();
-
-            if (response.ok) {
-                localStorage.setItem('jwtToken', result.token);  //Store the JWT in Local Storage
-                window.location.href = "/profile.html"  //Redirect to profile page
-            } else {
-                alert(result.message);
-            }
-        } catch (error) {
-            console.error('Error verifying JWT:', error);
-            alert('An error occurred while verifying the link.');
+        if (response.ok) {
+            localStorage.setItem('jwtToken', result.token);
+            window.location.href = "/dashboard.html";
+        } else {
+            msg.textContent = result.message; //Display error from the backend
         }
+    } catch (error) {
+        console.error('Error requesting login:', error);
+        msg.textContent = 'An error occurred. Please try again.';
     }
-};
+}

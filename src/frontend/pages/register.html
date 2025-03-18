@@ -14,36 +14,18 @@
             <div style="display: flex; flex-direction: row;">
                 <h2>Register</h2>
             </div>
-            <form action="#" id="registerform" method="post">
+            <form id="registerform">
                 <div class="input-group">
                     <label for="email">Enter your Email:</label>
                     <input type="email" id="email" placeholder="E-mail" required>
-                </div>
-                <div class="input-group">
-                    <label for="confirm-email">Re-enter your Email:</label>
-                    <input type="email" id="confirm-email" placeholder="Re-enter E-mail" required>
-                </div>
-                <div class="input-group" style=" position: relative; display: flex; flex-direction: row; justify-content: flex-start;">
-                    <div style=" position: relative; display: flex; flex-direction: column; margin: 2px 2px 2px 2px;">
-                        <label for="fname">Enter First name:</label>
-                        <input type="text" id="fname" placeholder="First name" required>
-                    </div>
-                    <div style="position: relative; display: flex; flex-direction: column; margin: 2px 2px 2px 2px;">
-                        <label for="lname">Enter Last name:</label>
-                        <input type="text" id="lname" placeholder="Last name" required>
-                    </div>
-                </div>
-                <div class="input-group">
-                    <label for="bdate">Enter your Birth Date:</label>
-                    <input type="date" id="bdate" placeholder="Birth Date" required>
                 </div>
                 <div class="input-group">
                     <label for="password">Create a new password:</label>
                     <input type="password" id="password" placeholder="New Password" required>
                 </div>
                 <div class="input-group">
-                    <label for="confirm-password">Re-enter your Password:</label>
-                    <input type="password" id="confirm-password" placeholder="Re-enter that password" required>
+                    <label for="name">Enter your name:</label>
+                    <input type="text" id="name" placeholder="Name" required>
                 </div>
                 <div class="input-group">
                     <button type="submit">Sign Up</button>
@@ -64,6 +46,37 @@
         </div>
         <script src="src/frontend/js/jquery-3.7.1.min.js"></script>
         <script src="src/frontend/js/script.js"></script>
+        <script>
+            $(document).ready(function () {
+                $("#registerform").submit(function (event) {  // Attach event handler to the form's submit event
+                    event.preventDefault();  // Prevent the default form submission
+
+                    const name = $("#name").val();
+                    const email = $("#email").val();
+                    const password = $("#password").val();
+                    const errorMessage = $("#error-message");  // Cache the error message element
+
+                    $.ajax({
+                        url: '/auth/register', // The Backend sign in page.
+                        type: 'POST',
+                        contentType: 'application/json',
+                        data: JSON.stringify({ name: name, email: email, password: password }), //Sends the user to the backend
+                        success: function (data) {
+                            // Handle success
+                            console.log("Register success:", data);
+                            localStorage.setItem('jwtToken', data.token)  //Save the token.
+                            window.location.href = "/homepage.html";  //Redirect to homepage
+
+                        },
+                        error: function (xhr, status, error) {
+                            // Handle errors
+                            console.error("Register error:", xhr);
+                            errorMessage.text("Register error check credentials");   //Error message invalid info
+                        }
+                    });
+                });
+            });
+        </script>
 </body>
    
 </html>
