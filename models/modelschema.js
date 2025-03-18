@@ -16,8 +16,7 @@ const clientSchema = new mongoose.Schema({
   },
   birthdate: {
     type: Date,
-    required: true,
-  },
+    },
   city: {
     type: String,
   },
