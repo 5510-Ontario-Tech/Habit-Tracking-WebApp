@@ -3,10 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Habitude : Dashboard</title>
+    <link rel="stylesheet" href="/css/design.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="src/frontend/js/jquery-3.7.1.min.js"></script>
-    <title>Document</title>
 </head>
 <body>
-    
+    <nav class="navbar">
+        <div class="navbar-left">
+            <img class="navbar-image" src="/src/frontend/assets/logo_app.svg"/>
+            <button class="navigation-buttons active" onclick="window.location.href='homepage.html'">Home</button>
+            <button class="navigation-buttons active" onclick="window.location.href='dashboard.html'">Dashboard</button>
+            <button class="navigation-buttons active" onclick="window.location.href='aboutus.html'">About Us</button>
+            <button class="navigation-buttons active" onclick="window.location.href='#'">Notifications</button>
+        </div>
+        <div class="navbar-right">
+            <button class="navigation-buttons active" onclick="window.location.href='signin.html'">Login</button>
+            <button class="navigation-buttons active" onclick="window.location.href='register.html'">Sign Up</button>
+        </div>
+    </nav>
+    <div class="dashboard-body">
+        <div class="dashboard-container">
+            <aside class="sidebar">
+                <div class="sidebar-header">
+                    <img class="profile-picD" src="/src/frontend/assets/user_icon.png" alt="User">
+                    <h2 class="username-dashboard">User</h2>
+                    <div class="horizontal-line" style="display:flex; justify-content:space-between; height: 1px; flex: grow 1; background-color:black;"></div>
+                     
+                </div>
+                <nav class="dashboard-sidebar">
+                    <ul>
+                        <li><img class="icon" src="/src/frontend/assets/home.png" alt="home"><button class="sidebar-btn" onclick="showSection('section1')">Dashboard</a></i></li>
+                        <li><img class="icon" src="/src/frontend/assets/lifestyle.png" alt="lifestyle"><button class="sidebar-btn" onclick="window.location.href='#'">My Habits</a></li>
+                        <li><img class="icon" src="/src/frontend/assets/refresh.png" alt="refresh"><button class="sidebar-btn" onclick="window.location.href='#'">Update Habits</a></li>
+                        <li><img class="icon" src="/src/frontend/assets/delete.png" alt="delete"><button class="sidebar-btn" onclick="window.location.href='#'">Delete Habits</a></li>
+                        <li><img class="icon" src="/src/frontend/assets/web-page.png" alt="settings"><a href="#">settings</a></li>
+                        <!-- <li><a href="#">Streaks</a></li> -->
+                    </ul>
+                </nav>
+            </aside>
+           <main>
+         <section id="dashboard">
+            <h2 class="main">Dashboard</h2>
+            <div class="habit-summary">
+                <div class="summary-card">
+                    <h3>Total Habits</h3>
+                    <p id="total-habits">0</p>
+                </div>
+                <div class="summary-card">
+                    <h3>Habits Completed</h3>
+                    <p id="completed-habits">0</p>
+                </div>
+                <div class="summary-card">
+                    <h3>Progress</h3>
+                    <p id="habit-progress">0%</p>
+                </div>
+            </div>
+        </section>
+       
+        <div id="habits">
+            <h2 class="main">My Habits</h2>
+            <form id="habit-form">
+                <input type="text" id="habit-input" placeholder="New Habit" required>
+                <button class="add-habit" type="submit">Add Habit</button>
+            </form>
+            <ul id="habit-list"></ul>
+        </div>
+
+        <section id="statistics">
+            <h2 class="main">Statistics</h2>
+            <canvas id="habit-chart"></canvas>
+        </section>
+
+        <section id="settings">
+            <h2 class="main">Settings</h2>
+            <button id="logout-btn">Logout</button>
+        </section>
+     
+    </main>
+    </div>
 </body>
 </html>
