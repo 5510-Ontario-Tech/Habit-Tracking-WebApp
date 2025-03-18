@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 
-<<<<<<< HEAD
 const userSchema = new mongoose.Schema({
     name:{
         type:String,
@@ -39,47 +38,4 @@ const userSchema = new mongoose.Schema({
     }
 });
 
-export default mongoose.model('User',userSchema);
-=======
-const clientSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-  },
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  password: {
-    type: String,
-    required: true,
-  },
-  birthdate: {
-    type: Date,
-    },
-  city: {
-    type: String,
-  },
-  province: {
-    type: String,
-  },
-  country: {
-    type: String,
-  },
-  isVerified: {
-    type: Boolean,
-    default:false
-  },
-  verificationToken: {
-    type: String,
-    select:false,
-  },
-},{
-  timestamps: true,
-  
-});
-
-export default mongoose.model("userDb", clientSchema);
-
->>>>>>> 3b9c8bd365e4292d6d669ba00037eba9a611f5e0
+export default mongoose.model("User", userSchema);
