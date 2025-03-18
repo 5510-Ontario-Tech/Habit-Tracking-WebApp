@@ -59,4 +59,6 @@ mongoose
 
 app.use("/api/auth", authRouter);
 
+app.use('/api/new',authRouter);
+
 
