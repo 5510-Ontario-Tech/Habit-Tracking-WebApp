@@ -7,6 +7,7 @@ import fs from 'fs';
 import mongoose from 'mongoose';
 import {MongoClient} from 'mongodb';
 import cors from 'cors';
+import User from './src/backend/models/modelschema.js';
 dotenv.config();
 const router = express.Router();
 fs.promises;
@@ -18,7 +19,7 @@ const app = express();
 const appPath = process.env.APP_PATH ? path.resolve(process.env.APP_PATH) : path.join(__dirname,"frontend","pages");
 const staticPath = process.env.STATIC_PATH ? path.resolve(process.env.STATIC_PATH) : path.join(__dirname,"css");
 const mongoURI = "mongodb://shah:shah@localhost:27017/habitude_1?authSource=admin";
-
+// const appDB = mongoose.connect(mongoURI);
 const client = new MongoClient(mongoURI);
 
 console.log("App Path : ",appPath);
@@ -112,6 +113,13 @@ app.post("/register", async (req,res) => {
   }
 })
   
+
+const newUser = new User(
+  {name : "Edith",
+  email : "abc@example.com",
+  password:"Abc#12345",
+  birthdate:1093938382
+})
 
 app.post("/shutdown",async (req,res) => {
   console.log("Server is shut down!")

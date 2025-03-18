@@ -3,35 +3,31 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 const nodemailer = require('nodemailer');
-const User = require('../models/modelschema');
+const User = require('../database/schema');
 
 const router = express.Router();
 
 const JWT_SECRET = 'YOUR_SUPER_SECRET_KEY';
 
-// Nodemailer Configuration
 const transporter = nodemailer.createTransport({
-    service: 'gmail', // Use your email service (e.g., 'gmail', 'Outlook')
+    service: 'gmail',
     auth: {
-        user: 'YOUR_EMAIL@gmail.com', // Your email address
-        pass: 'YOUR_EMAIL_PASSWORD' // Your email password or an app password (more secure than plain password)
+        user: 'YOUR_EMAIL@gmail.com',
+        pass: 'YOUR_EMAIL_PASSWORD'
     }
 });
 
-// API Endpoint for User Registration
 router.post('/register', async (req, res) => {
     const { email, name, password, birthdate } = req.body;
 
     try {
-        // 1. Hash the password
-        const hashedPassword = await bcrypt.hash(password, 10); // Salt rounds
+        const hashedPassword = await bcrypt.hash(password, 10);
 
-        // 2. Create a new user with hashed password
         const newUser = new User({
             email,
             name,
             password: hashedPassword,
-            birthdate: new Date(birthdate) // Convert birthdate string to Date object
+            birthdate: new Date(birthdate)
         });
 
         // 3. Generate unique verification token
@@ -45,7 +41,7 @@ router.post('/register', async (req, res) => {
             from: 'YOUR_EMAIL@gmail.com',
             to: email,
             subject: 'Verify Your Email',
-            html: `<p>Click this link to verify your email: <a href="${verificationLink}">${verificationLink}</a></p>`
+            html: `<p>Hi! We have noticed a sign up attempt from your side. To make sure it's you; please click this link to verify your email: <a href="${verificationLink}">${verificationLink}</a></p>`
         };
 
         transporter.sendMail(mailOptions, (error, info) => {
@@ -60,7 +56,6 @@ router.post('/register', async (req, res) => {
 
     } catch (error) {
         console.error('Error registering user:', error);
-        // Check if the error is due to duplicate email
         if (error.code === 11000 && error.keyPattern && error.keyPattern.email) {
             return res.status(400).json({ message: 'Email address is already registered.' });
         }
@@ -68,30 +63,24 @@ router.post('/register', async (req, res) => {
     }
 });
 
-// API Endpoint for Email Verification
 router.get('/verify-email', async (req, res) => {
-    const { token } = req.query; // Get token from query string
+    const { token } = req.query;
 
     try {
-        // Find user with matching token
         const user = await User.findOne({ verificationToken: token });
 
         if (!user) {
             return res.status(400).send('Invalid verification link.');
         }
 
-        // Mark user as verified
         user.isVerified = true;
-        user.verificationToken = null; // Clear token after verification
+        user.verificationToken = null;
         await user.save();
-
-        // Redirect to a success page
-        return res.redirect('/login.html'); //Redirect to login page
+        return res.redirect('/signin.html');
     } catch (error) {
         console.error('Error verifying email:', error);
         return res.status(500).send('Internal server error.');
     }
 });
 
-//Export Router
 module.exports = router;
