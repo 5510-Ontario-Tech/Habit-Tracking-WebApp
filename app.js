@@ -12,6 +12,7 @@ import connectDB from './src/database/db.js';
 import authMiddleware from './src/backend/middleware/jwtAuth.js';
 import authRoutes from './src/backend/routes/auth.js';
 import signinauthRoutes from './src/backend/routes/signinAuth.js';
+import get_api from './src/backend/get_api.js';
 
 dotenv.config();
 const router = express.Router();
@@ -28,6 +29,7 @@ const mongoURI = "mongodb+srv://shah:shah@localhost:27017/habitude_1?authSource=
 
 console.log("App Path : ", appPath);
 console.log("Static Path : ", staticPath);
+app.use('/',get_api);
 app.use(express.static(appPath));
 app.use('/css', express.static(staticPath));
 app.use(cors());

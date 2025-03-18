@@ -1,20 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-       
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>login</title>
-            <link rel="stylesheet" href="/css/design.css">
-           <script src="src/frontend/js/jquery-3.7.1.min.js"></script>
-    </head>
-    <body class="register-body">
-        <div class="register-container">
-          <div class="right-panel">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>login</title>
+    <link rel="stylesheet" href="/css/design.css">
+    <script src="src/frontend/js/jquery-3.7.1.min.js"></script>
+</head>
+
+<body class="register-body">
+    <div class="register-container">
+        <div class="right-panel">
             <div style="display: flex; flex-direction: row;">
                 <h2>Register</h2>
             </div>
             <form id="registerform">
+                <!-- Removed action and method attributes -->
                 <div class="input-group">
                     <label for="email">Enter your Email:</label>
                     <input type="email" id="email" placeholder="E-mail" required>
@@ -45,38 +48,32 @@
             </form>
         </div>
         <script src="src/frontend/js/jquery-3.7.1.min.js"></script>
-        <script src="src/frontend/js/script.js"></script>
         <script>
             $(document).ready(function () {
-                $("#registerform").submit(function (event) {  // Attach event handler to the form's submit event
-                    event.preventDefault();  // Prevent the default form submission
+                $("#registerform").submit(function (event) {
+                    event.preventDefault();
 
                     const name = $("#name").val();
                     const email = $("#email").val();
                     const password = $("#password").val();
-                    const errorMessage = $("#error-message");  // Cache the error message element
+                    const errorMessage = $("#error-message");
 
                     $.ajax({
-                        url: '/auth/register', // The Backend sign in page.
+                        url: '/auth/register',
                         type: 'POST',
                         contentType: 'application/json',
-                        data: JSON.stringify({ name: name, email: email, password: password }), //Sends the user to the backend
+                        data: JSON.stringify({ name: name, email: email, password: password }),
                         success: function (data) {
-                            // Handle success
-                            console.log("Register success:", data);
-                            localStorage.setItem('jwtToken', data.token)  //Save the token.
-                            window.location.href = "/homepage.html";  //Redirect to homepage
-
+                            // Redirect to verify.html
+                            window.location.href = "/frontend/pages/verify.html";
                         },
                         error: function (xhr, status, error) {
-                            // Handle errors
                             console.error("Register error:", xhr);
-                            errorMessage.text("Register error check credentials");   //Error message invalid info
+                            errorMessage.text("Register error check credentials");
                         }
                     });
                 });
             });
         </script>
-</body>
-   
+    </body>
 </html>
