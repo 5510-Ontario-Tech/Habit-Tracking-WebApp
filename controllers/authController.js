@@ -3,17 +3,19 @@ import { signinschema } from "../middleware/verify.js";
 
 import userModel from "../models/modelschema.js";
 
-import { singupHash } from "../utils/addhashing.js";
+import jwt from "jsonwebtoken";
+
+import { loginHash, singupHash } from "../utils/addhashing.js";
 
 export const signup = async (req, res) => {
   const { name, email, password } = req.body;
 
   console.log(req.body);
+  
 
   try {
-    console.log("entered bdf ");
+    console.log(req.body);
 
-    console.log("entered b ");
     const existingUser = await userModel.findOne({ email });
     console.log(existingUser);
 
@@ -34,57 +36,79 @@ export const signup = async (req, res) => {
     });
 
     console.log("entered d ");
-    const result = await newUser.save()
+    const result = await newUser.save();
     result.password = undefined;
 
     console.log("entered 2".result);
 
-    if(result){
-    
+    if (result) {
       res.status(201).json({
         Success: true,
         message: "User successfully registered",
         result,
       });
-
     }
     // res.send("Signup successful");
   } catch (error) {
     res.status(500).send("Internal server error");
     console.log("fghgh");
   }
-
-}
-
+};
 
 //User-login
 export const signin = async (req, res) => {
-  const {email, password } = req.body;
-
+  const { email, password } = req.body;
 
   try {
-
-    const {error, value} = signinschema({email,password});
-
-    if(error){
-      return res.status(401)
-      .json({
-
-        Success: false,
-        message: error.details[0].message
-      })
-    }
   
+    const existingUser = await userModel.findOne({ email }).select('+password');
+    if (!existingUser) {
+      return res
+        .status(401)
+        .json({ Success: false, message: "User does not registered" });
+    }
 
-  }
+    const result = await loginHash(password, existingUser.password);
+    if (!result) {
+      return res
+        .status(401)
+        .json({ Success: false, message: "Invalid user credential" });
+    }
+
+    const token = jwt.sign(
+      {
+        userID: existingUser._id,
+        email: existingUser.email,
+        verify: existingUser.isVerified,
+      },
+
+      process.env.TOKEN_SECRET,
+      {
+        expiresIn: '5h',
 
 
-  catch (error) {
+      }
+    );
+
+    res
+      .cookie("Authorization", "Bearer" + token, {
+        expire: new Date(Date.now() + 5 * 400000),
+
+        httpOnly: process.env.NODE_ENV === "producation",
+        secure: process.env.NODE_ENV === "producation",
+      })
+
+      .json({
+        Success: true,
+        token,
+        message: "User login sucessfull",
+      });
+  } catch (error) {
     res.status(500).send("Internal server error");
     console.log("fghgh");
   }
-
-}
+};
 
 // Export the router to use it in your app
-export default signup;
+export default signup; signin;
+

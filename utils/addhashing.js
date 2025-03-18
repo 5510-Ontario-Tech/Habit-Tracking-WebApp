@@ -1,4 +1,4 @@
-import {hash} from 'bcryptjs'
+import {hash, compare } from 'bcryptjs'
 
 export const singupHash = (value , SaltValue) => {
 
@@ -7,6 +7,14 @@ export const singupHash = (value , SaltValue) => {
 
 }
 
+export const loginHash = (value , hashedValue) => {
+
+    const result = compare(value, hashedValue);
+    return result;
+
+}
+
+
 
 // Export the router to use it in your app
-export default singupHash; 
+export default singupHash; loginHash; 

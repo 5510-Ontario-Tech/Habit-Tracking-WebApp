@@ -28,10 +28,15 @@ const clientSchema = new mongoose.Schema({
   },
   isVerified: {
     type: Boolean,
+    default:false
   },
   verificationToken: {
     type: String,
+    select:false,
   },
+},{
+  timestamps: true,
+  
 });
 
 export default mongoose.model("userDb", clientSchema);
