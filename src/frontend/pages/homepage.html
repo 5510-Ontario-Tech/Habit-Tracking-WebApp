@@ -1,60 +1,42 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Habitude : Homepage</title>
-    <link rel="stylesheet" href="/css/design.css">
-    <script src="/src/frontend/js/jquery-3.7.1.min.js"></script>
-</head>
-<body style="color: aquamarine">
-    <nav class="navbar">
-        <div class="navbar-left">
-            <img class="navbar-image" src="/src/frontend/assets/logo-habitude.svg"/>
-            <button class="navigation-buttons active" onclick="window.location.href='homepage.html'">Home</button>
-            <button class="navigation-buttons active" onclick="window.location.href='dashboard.html'">Dashboard</button>
-            <button class="navigation-buttons active" onclick="window.location.href='aboutus.html'">About Us</button>
-            <button class="navigation-buttons active" onclick="window.location.href='#'">Notifications</button>
-        </div>
-        <div class="navbar-right">
-            <button class="navigation-buttons active" onclick="window.location.href='signin.html'">Login</button>
-            <button class="navigation-buttons active" onclick="window.location.href='register.html'">Register</button>
-        </div>
-    </nav>
-    <div class="home-body">
-        <img src="/src/frontend/assets/website_background.jpg" style="width: 100%; height: 100%;">
-    </div>
-    <div class="home-body" style="margin-top:20px;">
-        <img src="/src/frontend/assets/homepage_background.jpg" style="width: 100%; height: 100%;">
-    </div>
-    <script src="/src/frontend/js/jquery-3.7.1.min.js"></script>
-</body> -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Habitude : Homepage</title>
-    <link rel="stylesheet" href="/css/design.css">
-    <script src="/src/frontend/js/jquery-3.7.1.min.js"></script>
+    <link rel="stylesheet" href="../css/design.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script defer src="../js/jquery-3.7.1.min.js"></script>
+    <script>
+        const menuButton = document.querySelector(".menu-button");
+        const dropdownMenu = document.querySelector(".dropdown-menu");
+        menuButton.addEventListener("click", () => {
+            dropdownMenu.style.display = dropdownMenu.style.display === "block" ? "none" : "block";
+        });
+    </script>
 </head>
 <body style="color: aquamarine">
-   
     <nav class="navbar">
-        <div class="navbar-left">
-            <img class="navbar-image" src="/src/frontend/assets/logo_app.svg"/>
-            <button class="navigation-buttons active" onclick="window.location.href='homepage.html'">Home</button>
-            <button class="navigation-buttons active" onclick="window.location.href='dashboard.html'">Dashboard</button>
-            <button class="navigation-buttons active" onclick="window.location.href='aboutus.html'">About Us</button>
-            <button class="navigation-buttons active" onclick="window.location.href='#'">Notifications</button>
-        </div>
-        <div class="navbar-right">
-            <button class="navigation-buttons active" onclick="window.location.href='signin.html'">Login</button>
-            <button class="navigation-buttons active" onclick="window.location.href='register.html'">Register</button>
-        </div>
+        <img class="logo" src="../assets/logo_app.svg"/>
+        <ul class="navbar-left">
+            <a class="nav-links active" onclick="window.location.href='homepage.html'">Home</a>
+            <a class="nav-links active" onclick="window.location.href='dashboard.html'">Dashboard</a>
+            <a class="nav-links active" onclick="window.location.href='aboutus.html'">About Us</a>
+            <a class="nav-links active" onclick="window.location.href='#'">Notifications</a>
+            <a class="nav-links active" onclick="window.location.href='signin.html'">Login</a>
+            <a class="nav-links active" onclick="window.location.href='register.html'">Register</a>
+        </ul>
+        <button class="menu-button"><img src="../assets/hamburger-menu.svg"/></button>
     </nav>
+    <div class="dropdown-menu">
+        <a class="active" href='homepage.html'">Home</a>
+        <a class="active" href='dashboard.html'>Dashboard</a>
+        <a class="active" href='#'>Notifications</a>
+        <a class="active" href='aboutus.html'>About Us</a>
+        <a class="active" href='signin.html'>Login</a>
+        <a class="active" href='register.html'>Register</a>
+    </div>
     <div class="slider">
-       
         <div class="slide">
                  <img src="/src/frontend/assets/slider.jpg">
                  <div class="text-1">Transform your daily routines, </div>

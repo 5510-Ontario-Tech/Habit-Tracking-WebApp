@@ -237,13 +237,19 @@ span{
 >>>>>>> b1af2c9 (Solved several bugs!)
 } */
 
-* {
+*{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 body{
     background-image: url('/src/frontend/assets/website_background2.jpg');
+}
+body, ul {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
 }
 .home-body{
     outline: 5px solid orange;
@@ -291,7 +297,6 @@ body{
     align-items: center;
     width: 50%;
     height: 100%;
-    background-image: url('src/frontend/assets/design_app_wall.svg');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -397,33 +402,32 @@ input{
 /* button: hover{
     background-color: blueviolet;
 } */
-.navigation-buttons{
+.nav-links{
     justify-content: center;
-    /* white-space: nowrap; */
+    white-space: nowrap;
     background-color: #d5b541;
-    /* border-color: navy;  */
+    border-color: navy; 
     cursor:pointer;
     border-radius: 50px; 
     margin: 4% 5% 4% 5%; 
     text-align: center;
-     padding: 2%; 
+     padding: 1%; 
     font-size: 15px;
-    /* display: inline-block; */
+    display: inline-block;
 }
-.navigation-buttons:hover{
-    /* background-color: #ddd; */
+.nav-links a:hover{
+    background-color: #ddd;
     color: purple;
 }
-.navigation-buttons .active{
+.nav-links .active{
     background-color: #04AA6D;
     color: greenyellow;
 }
-@media only screen and (max-width:769px) {
+@media only screen and (max-width:768px) {
     .navbar{
         flex-direction: column;
-        align-items: center;
     }
-    .navigation-buttons{
+    .nav-links{
         margin-bottom: 10px;
     }
 }
@@ -441,7 +445,6 @@ span{
     text-align: center;
 }
 .navbar {
-    overflow: auto;
     display: flex;
     flex-direction: row;
     margin: 7px;
@@ -452,21 +455,10 @@ span{
     z-index: 1000;
 }
 .navbar-left{
-    margin-right: 30px;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     gap: 10px;
-   
-}
-.navbar-right{
-    margin-right: 20px;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap; 
-    justify-content: flex-end;
-    gap: 10px;
-    padding: 2% 2% 2% 5%;
 }
 .navbar a{
     float: left;
@@ -484,9 +476,9 @@ span{
     background-color: #04AA6D;
     color: greenyellow;
 }
-.navbar-image{
-    margin: 2% 4% 4% 4%;
-    padding: 1% 1% 1% 1%;
+.logo{
+    font-size: 24px;
+    font-weight: bold;
 }
 .horizontal-divider{
     display: flex;
@@ -511,8 +503,7 @@ span{
     display: inline-block;
     margin: 10px 10px 10px 10px;
 }
- .review-container{ 
-   
+ .review-container{
     max-width: 1400px;
     border-radius: 10px;
     margin: 45% 2% 2% 3%; 
@@ -524,7 +515,6 @@ span{
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap:20px;
- 
 }
 .review-box{
   background-color: #fff;
@@ -549,8 +539,47 @@ span{
     color: gold;
 }
 
+/* Menu Button */
+.menu-button {
+    display: none;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* Dropdown Menu */
+.dropdown-menu {
+    display: none;
+    background: #333;
+    padding: 10px;
+    position: absolute;
+    width: 100%;
+    top: 60px;
+    left: 0;
+    text-align: center;
+}
+
+.dropdown-menu a {
+    display: block;
+    color: white;
+    padding: 10px;
+    text-decoration: none;
+}
+
+.dropdown-menu a:hover {
+    background: #555;
+}
+
 /* Responsive for smaller screens */
 @media (max-width: 768px) {
+    .nav-links{
+        display: none;
+    }
+    .menu-button{
+        display: block;
+    }
     .review-sections {
         grid-template-columns: 1fr;
     }
@@ -635,11 +664,7 @@ span{
     }
     .text-1, .text-2, .text-3
     {
-      
-            font-size: 10px;
-            padding: 2%;
-            
-        }
-       
-    }
-   
+        font-size: 10px;
+        padding: 2%;     
+    }  
+}

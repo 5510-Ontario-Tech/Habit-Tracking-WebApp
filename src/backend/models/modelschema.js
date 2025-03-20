@@ -21,7 +21,6 @@ const userSchema = new mongoose.Schema({
     },
     verificationToken: {
         type: String,
-        default: null
     }
 });
 
