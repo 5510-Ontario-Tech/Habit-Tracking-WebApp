@@ -504,6 +504,7 @@
   #habit-list {
     list-style-type: none;
     padding: 0;
+    display: flex;
   }
   
   #habit-list li {
@@ -511,7 +512,7 @@
     padding: 10px;
     margin: 5px 0;
     border-radius: 5px;
-    display: flex;
+    flex: 1;
     justify-content: space-between;
     align-items: center;
   }
@@ -532,8 +533,8 @@
     color: white;
     cursor: pointer;
   }
-  .add-habit{
-    background-color :#0e3ce5;
+  #add-habit{
+    background-color :white;
     color: goldenrod;
     padding: 10px 20px;
     border-radius: 5px;
@@ -541,5 +542,46 @@
     margin-top: 10px;
     font-weight: bold;
     font-size: medium;
+  }
+  input[type="checkbox"]{
+    width: 20px; /* اندازه چک‌باکس */
+    height: 20px; /* اندازه چک‌باکس */
+    border: 2px solid #4caf50; /* رنگ مرز */
+    border-radius: 4px; /* گوشه‌های گرد */
+    background-color: #fff; /* پس‌زمینه سفید */
+    cursor: pointer; /* نشانگر موس به حالت دست */
+    position: relative; 
+  }
+  /* .checkbox-label{
+    position: relative;
+    display: inline-block;
+    padding-left: 30px;
+    cursor: pointer;
+    line-height: normal;
+
+  } */
+  
+  input[type="checkbox"]:checked {
+    background-color: #4caf50;
+    border-color: #4caf50;
+  }
+  .checkbox-label::after{
+    content: "";
+    position: absolute;
+    left: 6px;
+    top: 10px;
+    width: 6px;
+    height: 10px;
+    border:  solid goldenrod;
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+ .habit-item{
+    padding: 10px;
+    margin-bottom: 10px;
+    flex-grow: 1;
+
   }
   

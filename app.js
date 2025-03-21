@@ -7,9 +7,9 @@ import fs from 'fs';
 import mongoose from 'mongoose';
 import {MongoClient} from 'mongodb';
 import cors from 'cors';
-import User from './src/backend/models/modelschema.js';
+//import User from './src/backend/models/modelschema.js';
 dotenv.config();
-import clientschema from './src/backend/models/modelschema.js';
+//import clientschema from './src/backend/models/modelschema.js';
 const router = express.Router();
 fs.promises;
 
@@ -22,37 +22,34 @@ const mongoURIdb = process.env.mongoURI;
 const app = express();
 const appPath = process.env.APP_PATH ? path.resolve(process.env.APP_PATH) : path.join(__dirname,"frontend","pages");
 const staticPath = process.env.STATIC_PATH ? path.resolve(process.env.STATIC_PATH) : path.join(__dirname,"css");
-<<<<<<< HEAD
 const mongoURI = "mongodb://shah:shah@localhost:27017/habitude_1?authSource=admin";
 // const appDB = mongoose.connect(mongoURI);
 const client = new MongoClient(mongoURI);
-=======
->>>>>>> 3b9c8bd365e4292d6d669ba00037eba9a611f5e0
 
 console.log("App Path : ",appPath);
 console.log("Static Path : ",staticPath);
 
 // MongoDB Connection
-mongoose.connect(mongoURIdb, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-}).then(() => console.log('MongoDB connected')).catch((err) => console.log(err));
+// mongoose.connect(mongoURIdb, {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+// }).then(() => console.log('MongoDB connected')).catch((err) => console.log(err));
 
  // Create and save a new document
- const newUser = new clientschema({
-  name: 'shivampatel',
-  email: 'shivamp@yahoo.com',
-  password: 25,
-  birthdate:13052000
-});
+//  const newUser = new clientschema({
+//   name: 'shivampatel',
+//   email: 'shivamp@yahoo.com',
+//   password: 25,
+//   birthdate:13052000
+// });
 
-newUser.save()
-  .then((user) => {
-    console.log('User saved:', user);
-  })
-  .catch((err) => {
-    console.error('Error saving user:', err);
-  });
+// newUser.save()
+//   .then((user) => {
+//     console.log('User saved:', user);
+//   })
+//   .catch((err) => {
+//     console.error('Error saving user:', err);
+//   });
 
 
 app.use(express.static(appPath));
@@ -148,12 +145,12 @@ app.get("/", (req,res) => {
 // })
   
 
-const newUser = new User(
-  {name : "Edith",
-  email : "abc@example.com",
-  password:"Abc#12345",
-  birthdate:1093938382
-})
+//const newUser = new User(
+//  {name : "Edith",
+//  email : "abc@example.com",
+//  password:"Abc#12345",
+//  birthdate:1093938382
+//});
 
 app.post("/shutdown",async (req,res) => {
   console.log("Server is shut down!")

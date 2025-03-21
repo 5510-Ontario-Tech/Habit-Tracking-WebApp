@@ -50,3 +50,81 @@ window.onload = async function() {
         }
     }
 };
+$(document).ready(function() {
+    // Elements from the DOM
+    const $habitForm = $("#habit-form");
+    const $habitInput = $("#habit-input");
+    const $habitList = $("#habit-list");
+    const $totalHabits = $("#total-habits");
+    const $completedHabits = $("#completed-habits");
+    const $habitProgress = $("#habit-progress");
+    const $logoutButton = $("#logout-btn");
+
+    // Arrays to store habit data
+    let habits = [];
+
+    // Function to update the dashboard
+    function updateDashboard() {
+        const total = habits.length;
+        const completed = habits.filter(habit => habit.completed).length;
+        const progress = total > 0 ? Math.round((completed / total) * 100) : 0;
+
+        // Update the dashboard stats
+        $totalHabits.text(total);
+        $completedHabits.text(completed);
+        $habitProgress.text(`${progress}%`);
+    }
+
+    // Function to render the habit list
+    function renderHabitList() {
+        $habitList.empty();
+        habits.forEach((habit, index) => {
+            const $li = $("<li>").addClass("habit-item");
+
+            const $span = $("<span>").text(habit.name);
+            if (habit.completed) {
+                $span.addClass("completed");
+            }
+
+            // Create a checkbox to mark as completed
+            const $checkbox = $("<input>").attr("type", "checkbox").prop("checked", habit.completed);
+            $checkbox.on("change", function() {
+                habit.completed = $(this).prop("checked");
+                updateDashboard();
+                renderHabitList();
+            });
+
+            $li.append($checkbox).append($span);
+            $habitList.append($li);
+        });
+    }
+
+    // Handle the form submission to add a new habit
+    $habitForm.on("submit", function(e) {
+        e.preventDefault();
+
+        // Add new habit to the array
+        const newHabit = {
+            name: $habitInput.val(),
+            completed: false
+        };
+        habits.push(newHabit);
+
+        // Clear the input field
+        $habitInput.val("");
+
+        // Update the dashboard and habit list
+        updateDashboard();
+        renderHabitList();
+    });
+
+    // Handle logout functionality (just a placeholder for now)
+    $logoutButton.on("click", function() {
+        // Here you can add logic to handle logging out, like clearing session or redirecting
+        alert("Logging out...");
+    });
+
+    // Initialize dashboard
+    updateDashboard();
+    renderHabitList();
+});
