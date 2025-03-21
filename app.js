@@ -9,7 +9,13 @@ import {MongoClient} from 'mongodb';
 import cors from 'cors';
 //import User from './src/backend/models/modelschema.js';
 dotenv.config();
+<<<<<<< HEAD
 //import clientschema from './src/backend/models/modelschema.js';
+=======
+import clientschema from "./models/modelschema.js";
+import authRouter from "./routes/auth.js"
+import { truncates } from "bcryptjs";
+>>>>>>> c8cd0a467bdff617325b48a782e4435facb82276
 const router = express.Router();
 fs.promises;
 
@@ -18,8 +24,15 @@ const __dirname = path.dirname(__filename);
 
 const mongoURIdb = process.env.mongoURI;
 
-
 const app = express();
+<<<<<<< HEAD
+const appPath = process.env.APP_PATH
+  ? path.resolve(process.env.APP_PATH)
+  : path.join(__dirname, "frontend", "pages");
+const staticPath = process.env.STATIC_PATH
+  ? path.resolve(process.env.STATIC_PATH)
+  : path.join(__dirname, "css");
+=======
 const appPath = process.env.APP_PATH ? path.resolve(process.env.APP_PATH) : path.join(__dirname,"frontend","pages");
 const staticPath = process.env.STATIC_PATH ? path.resolve(process.env.STATIC_PATH) : path.join(__dirname,"css");
 const mongoURI = "mongodb://shah:shah@localhost:27017/habitude_1?authSource=admin";
@@ -43,6 +56,7 @@ console.log("Static Path : ",staticPath);
 //   birthdate:13052000
 // });
 
+<<<<<<< HEAD
 // newUser.save()
 //   .then((user) => {
 //     console.log('User saved:', user);
@@ -50,47 +64,54 @@ console.log("Static Path : ",staticPath);
 //   .catch((err) => {
 //     console.error('Error saving user:', err);
 //   });
+=======
+newUser.save()
+  .then((user) => {
+    console.log('User saved:', user);
+  })
+  .catch((err) => {
+    console.error('Error saving user:', err);
+  });
+>>>>>>> ab1f29b1fecffa4d377602809750442aa5da4a5b
+>>>>>>> c8cd0a467bdff617325b48a782e4435facb82276
 
+console.log("App Path : ", appPath);
+console.log("Static Path : ", staticPath);
 
 app.use(express.static(appPath));
-app.use('/css',express.static(staticPath));
+app.use("/css", express.static(staticPath));
 app.use(express.json());
 app.use(cors());
-app.use(express.static(__dirname,{
-  extensions:["webp","jpg","svg"],
-}));
+app.use(express.urlencoded({ extended: truncates }));
+app.use(
+  express.static(__dirname, {
+    extensions: ["webp", "jpg", "svg"],
+  })
+);
 
 
-app.get("/", (req,res) => {
-  const pageName = req.params.pageName;
-  const pagePath = path.resolve(appPath,"${pageName}.html");
+app.listen(process.env.PORT, () =>{
 
-  // console.log("Found Path!")
-  res.redirect("frontend/pages/homepage.html");
-  // res.status(200).sendFile(pagePath, (error) => {
-  //   if(error){
-  //     console.error(`Error reading or sending ${pageName}.html:`, error);
-  //     res.status(404).send(`Page ${pageName} not found.`);
-  //   }
-  // });
-});
-app.get("*", (req, res) => {
-  return res.sendStatus(404);
+  console.log('Listening to the port')
 });
 
-app.listen(3000, async () => {
-  console.log('Running on http://localhost:3000')
-  await open('http://localhost:3000',{app:{name:"C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe"}});
-});
+// MongoDB Connection
+mongoose
+  .connect(mongoURIdb, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log("MongoDB connected"))
+  .catch((err) => console.log(err));
 
 
-app.get("/", (req,res) => {
+app.use("/api/auth", authRouter);
 
-  res.send("Server is running");
-
-})
+app.use('/api/new',authRouter);
 
 
+<<<<<<< HEAD
+=======
 // app.post("/register", async (req,res) => {
 
 //   try{
@@ -160,3 +181,4 @@ app.post("/shutdown",async (req,res) => {
 
   
 })
+>>>>>>> ab1f29b1fecffa4d377602809750442aa5da4a5b
