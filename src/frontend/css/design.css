@@ -544,12 +544,12 @@
     font-size: medium;
   }
   input[type="checkbox"]{
-    width: 20px; /* اندازه چک‌باکس */
-    height: 20px; /* اندازه چک‌باکس */
-    border: 2px solid #4caf50; /* رنگ مرز */
-    border-radius: 4px; /* گوشه‌های گرد */
-    background-color: #fff; /* پس‌زمینه سفید */
-    cursor: pointer; /* نشانگر موس به حالت دست */
+    width: 20px;
+    height: 20px; 
+    border: 2px solid #4caf50; 
+    border-radius: 4px; 
+    background-color: #fff; 
+    cursor: pointer; 
     position: relative; 
   }
   /* .checkbox-label{
@@ -584,4 +584,44 @@
     flex-grow: 1;
 
   }
+  footer {
+    background-color: (135deg, #caa82b, #d9c44c);
+    color: black;
+    padding: 20px 0;
+    text-align: center;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+  }
   
+  .footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  
+  .footer-left {
+    font-size: 14px;
+  }
+  
+  .footer-right ul {
+    list-style: none;
+    display: flex;
+  }
+  
+  .footer-right ul li {
+    margin-left: 15px;
+  }
+  
+  .footer-right ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+  }
+  
+  .footer-right ul li a:hover {
+    text-decoration: underline;
+  }
