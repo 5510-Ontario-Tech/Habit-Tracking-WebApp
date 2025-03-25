@@ -46,18 +46,19 @@ app.use('/auth', authRoutes);  //  /auth/register, /auth/verify-email
 app.use('/auth', signinauthRoutes); // /auth/signin
 
 app.get("/dashboard.html", authMiddleware, (req, res) => {
-    const pageName = req.params.pageName;
-    const pagePath = path.resolve(appPath, "${pageName}.html");
-    res.status(200).sendFile(pagePath, (error) => {
+    res.status(200).sendFile(path.join(appPath,'dashboard.html'), (error) => {
         if (error) {
-            console.error(`Error reading or sending ${pageName}.html:`, error);
-            res.status(404).send(`Page ${pageName} not found.`);
+            console.error(`Error reading or sending dashboard.html:`, error);
+            res.status(500).send('Error serving Dashboard!');
         }
     });
 });
+app.get('/dashboard.html', (req, res) => {
+    res.redirect('/signin.html'); // Redirect if no token
+  });
 
 app.get("/", (req, res) => {
-    res.redirect("./src/frontend/pages/homepage.html");
+    res.redirect("./src/frontend/pages/index.html");
 });
 
 app.get("*", (req, res) => {
@@ -67,7 +68,7 @@ app.get("*", (req, res) => {
 app.listen(3000, async () => {
     console.log('Running on http://localhost:3000');
     await open('http://localhost:3000', { app: { name: "/usr/bin/firefox-esr" } });
-    await connectDB(); // Connect to database after the app starts listening
+    await connectDB();
 });
 
 /*app.post("/shutdown", async (req, res) => {
