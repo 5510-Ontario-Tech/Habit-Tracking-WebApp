@@ -10,8 +10,10 @@ import cors from 'cors';
 //import User from './src/backend/models/modelschema.js';
 // dotenv.config();
 import clientschema from "./models/modelschema.js";
+import { connect } from 'http2';
 // import authRouter from "./routes/auth.js"
 // import { truncates } from "bcryptjs";
+import connectDB from 'Habit-Tracking-WebApp/src/database/db.js';
 const router = express.Router();
 fs.promises;
 
