@@ -8,12 +8,13 @@ import mongoose from 'mongoose';
 import {MongoClient} from 'mongodb';
 import cors from 'cors';
 //import User from './src/backend/models/modelschema.js';
-// dotenv.config();
+dotenv.config();
 import clientschema from "./models/modelschema.js";
 import { connect } from 'http2';
 // import authRouter from "./routes/auth.js"
 // import { truncates } from "bcryptjs";
-import connectDB from 'Habit-Tracking-WebApp/src/database/db.js';
+import connectDB from './src/database/db.js';
+
 const router = express.Router();
 fs.promises;
 
@@ -31,8 +32,8 @@ const staticPath = process.env.STATIC_PATH
   ? path.resolve(process.env.STATIC_PATH)
   : path.join(__dirname, "css");
 
-// const appPath = process.env.APP_PATH ? path.resolve(process.env.APP_PATH) : path.join(__dirname,"frontend","pages");
-// const staticPath = process.env.STATIC_PATH ? path.resolve(process.env.STATIC_PATH) : path.join(__dirname,"css");
+//  const appPath = process.env.APP_PATH ? path.resolve(process.env.APP_PATH) : path.join(__dirname,"frontend","pages");
+//  const staticPath = process.env.STATIC_PATH ? path.resolve(process.env.STATIC_PATH) : path.join(__dirname,"css");
 const mongoURI = "mongodb://shah:shah@localhost:27017/habitude_1?authSource=admin";
 // const appDB = mongoose.connect(mongoURI);
 const client = new MongoClient(mongoURI);
@@ -168,9 +169,10 @@ app.listen(process.env.PORT, () =>{
 //  birthdate:1093938382
 // });
 app.listen(3000, async () => {
+  
   console.log('Running on http://localhost:3000');
   await open('http://localhost:3000', { app: { name: "C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe" } });
-  await connectDB(); // Connect to database after the app starts listening
+  
 });
 
 app.post("/shutdown",async (req,res) => {
@@ -180,5 +182,5 @@ app.post("/shutdown",async (req,res) => {
 
 
   
-})
+});
 

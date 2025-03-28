@@ -627,3 +627,20 @@
   .footer-right ul li a:hover {
     text-decoration: underline;
   }
+  .profile-photo img{
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+  }
+  input[type="file"]{
+    margin-top: 10px;
+  }
+  .username-section{
+    margin-top: 15px;
+  }
+  #update-btn{
+    cursor: pointer;
+    
+  }
