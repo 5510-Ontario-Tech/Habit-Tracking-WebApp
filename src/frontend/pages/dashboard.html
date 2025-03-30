@@ -37,7 +37,7 @@
                         <li><img class="icon" src="/src/frontend/assets/home.png" alt="home"><button class="sidebar-btn" onclick="showSection('section1')">Dashboard</a></i></li>
                         <li><img class="icon" src="/src/frontend/assets/lifestyle.png" alt="lifestyle"><button class="sidebar-btn" onclick="window.location.href='#'">My Habits</a></li>
                         <li><img class="icon" src="/src/frontend/assets/refresh.png" alt="refresh"><button class="sidebar-btn" onclick="window.location.href='#'">Update Habits</a></li>
-                        <li><img class="icon" src="/src/frontend/assets/delete.png" alt="delete"><button class="sidebar-btn" onclick="window.location.href='#'">Delete Habits</a></li>
+                        <li><img class="icon" src="/src/frontend/assets/delete.png" alt="delete"><button class="sidebar-btn" id="delete-habit-btn">Delete Habits</a></li>
                         <li><img class="icon" src="/src/frontend/assets/web-page.png" alt="settings"><a href="#">settings</a></li>
                         <!-- <li><a href="#">Streaks</a></li> -->
                     </ul>
@@ -72,10 +72,12 @@
                 <li class="habit item">
                     <input type="checkbox" id="habit1">
                     <label for="habit1" class="checkbox-label"></label>
+                    <button type="submit" class="delete-habit">Delete</button>
                 </li>
                 <li class="habit item">
                     <input type="checkbox" id="habit1">
                     <label for="habit1" class="checkbox-label"></label>
+                    <button type="submit" class="delete-habit">Delete</button>
                 </li>
             </ul>
         </div>
@@ -95,7 +97,7 @@
             <div class="username-section">
                 <label for="username">Change Username:</label>
                 <input type="text" id="username" placeholder="Enter new username" />
-                <button id="update-btn">Update Profile</button>
+                <button class ="update-btn">Update Profile</button>
               </div>
             <button id="logout-btn">Logout</button>
         </section>
@@ -113,7 +115,8 @@
         const $completedHabits = $("#completed-habits");
         const $habitProgress = $("#habit-progress");
         const $logoutButton = $("#logout-btn");
-        const $photoinput= $("#photo-input")
+        const $photoInput = $("#photo-input");
+    
         // Arrays to store habit data
         let habits = [];
     
@@ -134,7 +137,6 @@
             $habitList.empty();
             habits.forEach((habit, index) => {
                 const $li = $("<li>").addClass("habit-item");
-                  
     
                 const $span = $("<span>").text(habit.name);
                 if (habit.completed) {
@@ -149,7 +151,18 @@
                     renderHabitList();
                 });
     
-                $li.append($checkbox).append($span);
+                // Add delete button for habit
+                const $deleteBtn = $("<button>").addClass("delete-habit").text("Delete");
+                $deleteBtn.on("click", function() {
+                    var confirmation = confirm("Are you sure you want to delete this habit?");
+                    if (confirmation) {
+                        habits.splice(index, 1);  // Remove the habit from the array
+                        updateDashboard();
+                        renderHabitList();  // Re-render the habit list
+                    }
+                });
+    
+                $li.append($checkbox).append($span).append($deleteBtn);
                 $habitList.append($li);
             });
         }
@@ -173,38 +186,48 @@
             renderHabitList();
         });
     
-        // Handle logout functionality 
+        // Handle logout functionality
         $logoutButton.on("click", function() {
-            
             alert("Logging out...");
+        });
+    
+        // Update profile photo
+        $("#update-btn").on("click", function() {
+            $photoInput.on("change", function(event) {
+                const file = event.target.files[0];
+                if (file && file.type.startsWith("image/")) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        $("#profile-img").attr("src", e.target.result);
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    alert("Please select a valid image.");
+                }
+            });
+        });
+    
+        // Update username
+        $("#update-btn").on("click", function() {
+            const newUsername = $("#username").val().trim();
+            if (newUsername !== "") {
+                $("#username").text(newUsername); // Update username in the UI
+                alert("Profile updated successfully!");
+            } else {
+                alert("Please enter a valid username.");
+            }
+        });
+    
+        // Scroll to habit section when clicking "delete-habit-btn"
+        $("#delete-habit-btn").click(function() {
+            $("html, body").animate({
+                scrollTop: $('.habit-item').offset().top
+            }, 1000);
         });
     
         // Initialize dashboard
         updateDashboard();
         renderHabitList();
-    });
-    $photoinput.on("change",function(event){
-      const file= event.target.files[0];
-      if(file && file.type.StartsWith("image/")){
-       const reader= new FileReader();
-       reader.onload= function(e){
-        $("#profile-img").attr("src",e.target.result);
-       };
-       reader.readAsDataURL(file);
-      }
-      else{
-        alert("select valid image");
-      }
-    });
-    $("#update-btn").on("click",function(){
-     const newusername= $("username").val().trim();
-     if(newusername !==""){
-        $("#username").text(newusername);
-        alert("Profile updated successfully!");
-    } else {
-      alert("Please enter a valid username.");
-    }
-     
     });
 
 </script>

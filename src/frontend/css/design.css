@@ -532,6 +532,9 @@
     border: none;
     color: white;
     cursor: pointer;
+    border-radius: 4px;
+    padding: 5px 10px;
+    margin-left: 10px;
   }
   #add-habit{
     background-color :white;
@@ -644,3 +647,14 @@
     cursor: pointer;
     
   }
+  /* .delete-habit{
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 4px;
+    margin-left: 10px;
+}
+  */
