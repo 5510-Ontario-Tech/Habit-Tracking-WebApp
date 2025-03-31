@@ -5,7 +5,6 @@ import dotenv from 'dotenv';
 import { fileURLToPath } from 'url';
 import fs from 'fs';
 import mongoose from 'mongoose';
-import { MongoClient } from 'mongodb';
 import cors from 'cors';
 import User from './src/backend/models/modelschema.js';
 import connectDB from './src/database/db.js';
@@ -29,11 +28,10 @@ console.log("App Path : ", appPath);
 console.log("Static Path : ", staticPath);
 
 mongoose.connect(mongoDBURI)
-.then(() => console.log("MongoDB URI:", process.env.MONGODB_URI))
 .then(()=>console.log("MongoDB Connected!"))
 .catch(err => console.error("MongoDB Connection error:",err));
 
-app.use(express.json());  //for parsing json request
+app.use(express.json());  //parsing : json request
 app.use(cors());
 app.use(express.static(appPath));
 app.use('/css', express.static(staticPath));
@@ -54,8 +52,8 @@ app.get("/dashboard.html", authMiddleware, (req, res) => {
     });
 });
 app.get('/dashboard.html', (req, res) => {
-    res.redirect('/signin.html'); // Redirect if no token
-  });
+    res.redirect('/signin.html'); // redirect me <-- no token
+});
 
 app.get("/", (req, res) => {
     res.redirect("./src/frontend/pages/index.html");

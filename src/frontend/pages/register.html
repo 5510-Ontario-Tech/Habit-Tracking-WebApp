@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../css/design.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="../js/jquery-3.7.1.min.js"></script>
+    <script src="../js/register.js"></script>
 </head>
 <body class="register-body">
     <div class="register-container">
@@ -29,7 +30,7 @@
                     <input type="password" id="password" placeholder="New Password" required>
                 </div>
                 <div class="input-group">
-                    <button type="submit">Sign Up</button>
+                    <button class="in-app-buttons" type="submit">Sign Up</button>
                     <div id="error-message" class="error"></div>
                 </div>
                 <div class="input-group horizontal-divider">
@@ -39,36 +40,11 @@
                 </div>
                 <div class="input-group">
                     <p>Already have an Account?
-                        <button type="button" onclick="window.location.href='/signin.html'">Login</button>
+                        <button class="in-app-buttons" type="button" onclick="window.location.href='signin.html'">Login</button>
                         <span id="toggle"></span>
                     </p>
                 </div>
             </form>
         </div>
-        <script>
-            $(document).ready(function () {
-                $("#registerform").submit(function (event) {
-                    event.preventDefault();
-                    const name = $("#name").val();
-                    const email = $("#email").val();
-                    const password = $("#password").val();
-                    const errorMessage = $("#error-message");
-                    $.ajax({
-                        url: '/auth/register',
-                        type: 'POST',
-                        contentType: 'application/json',
-                        data: JSON.stringify({ name: name, email: email, password: password }),
-                        success: function (data) {
-                            console.log("Signup successful! About to redirect to /frontend/pages/verify.html");
-                            window.location.href = "../pages/verify.html";
-                        },
-                        error: function (xhr, status, error) {
-                            console.error("Register error:", xhr);
-                            errorMessage.text("Register error check credentials");
-                        }
-                    });
-                });
-            });
-        </script>
     </body>
 </html>

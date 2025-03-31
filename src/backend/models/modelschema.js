@@ -21,6 +21,10 @@ const userSchema = new mongoose.Schema({
     },
     verificationToken: {
         type: String,
+    },
+    profile_image:{
+        type:String,
+        default:"src/frontend/assets/user_icon.png",
     }
 });
 

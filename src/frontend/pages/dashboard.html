@@ -7,11 +7,13 @@
     <link rel="stylesheet" href="../css/design.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="../js/jquery-3.7.1.min.js"></script>
+    <script src="../js/script.js"></script>
     <script>
         $(document).ready(function () {
-            const token = localStorage.getItem('jwtToken');
+            const token = sessionStorage.getItem('jwtToken');
             if (!token) {
             window.location.href = 'signin.html';
+            token=undefined;
             }
             else{
                 $.ajax({
@@ -29,15 +31,13 @@
 </head>
 <body>
     <nav class="navbar">
-        <div class="navbar-left">
-            <img class="navbar-image" src="/src/frontend/assets/logo_app.svg"/>
+        <object class="logo" type="image/svg+xml" data="../assets/logo_app.svg"></object>
+        <ul class="navbar-left">
             <a class="nav-links active" href='index.html'">Home</a>
             <a class="nav-links active" href='dashboard.html'">Dashboard</a>
             <a class="nav-links active" href='aboutus.html'">About Us</a>
             <a class="nav-links active" href='#'">Notifications</a>
-            <a class="nav-links active" href='signin.html'">Login</a>
-            <a class="nav-links active" href='register.html'">Sign Up</a>
-        </div>
+        </ul>
     </nav>
     <div class="dashboard-body">
         <div class="dashboard-container">
@@ -46,14 +46,12 @@
                     <img class="profile-picD" src="/src/frontend/assets/user_icon.png" alt="User">
                     <h2 class="username-dashboard">User</h2>
                     <div class="horizontal-line" style="display:flex; justify-content:space-between; height: 1px; flex: grow 1; background-color:black;"></div>
-                     
                 </div>
                 <nav class="dashboard-sidebar">
                     <ul>
                         <li><img class="icon" src="/src/frontend/assets/home.png" alt="home"><button class="sidebar-btn" onclick="showSection('section1')">Dashboard</a></i></li>
-                        <li><img class="icon" src="/src/frontend/assets/lifestyle.png" alt="lifestyle"><button class="sidebar-btn" onclick="window.location.href='#'">My Habits</a></li>
-                        <li><img class="icon" src="/src/frontend/assets/refresh.png" alt="refresh"><button class="sidebar-btn" onclick="window.location.href='#'">Update Habits</a></li>
-                        <li><img class="icon" src="/src/frontend/assets/delete.png" alt="delete"><button class="sidebar-btn" onclick="window.location.href='#'">Delete Habits</a></li>
+                        <li><img class="icon" src="/src/frontend/assets/lifestyle.png" alt="my-habits"><button class="sidebar-btn" onclick="window.location.href='#'">My Habits</a></li>
+                        <li><img class="icon" src="/src/frontend/assets/delete.png" alt="statistics"><button class="sidebar-btn" onclick="window.location.href='#'">Statistics</a></li>
                         <li><img class="icon" src="/src/frontend/assets/web-page.png" alt="settings"><a href="#">settings</a></li>
                         <!-- <li><a href="#">Streaks</a></li> -->
                     </ul>
@@ -77,7 +75,6 @@
                 </div>
             </div>
         </section>
-       
         <div id="habits">
             <h2 class="main">My Habits</h2>
             <form id="habit-form">
@@ -100,4 +97,84 @@
     </main>
     </div>
 </body>
+<script>
+    $(document).ready(function() {
+        // Elements- DOM
+        const $habitForm = $("#habit-form");
+        const $habitInput = $("#habit-input");
+        const $habitList = $("#habit-list");
+        const $totalHabits = $("#total-habits");
+        const $completedHabits = $("#completed-habits");
+        const $habitProgress = $("#habit-progress");
+        const $logoutButton = $("#logout-btn");
+    
+        // habitDatabase
+        let habits = [];
+    
+        // F(n) : update my dashboard
+        function updateDashboard() {
+            const total = habits.length;
+            const completed = habits.filter(habit => habit.completed).length;
+            const progress = total > 0 ? Math.round((completed / total) * 100) : 0;
+    
+            // Update--> dashboard stats
+            $totalHabits.text(total);
+            $completedHabits.text(completed);
+            $habitProgress.text(`${progress}%`);
+        }
+    
+        // Render the habit list
+        function renderHabitList() {
+            $habitList.empty();
+            habits.forEach((habit, index) => {
+                const $li = $("<li>").addClass("habit-item");
+                  
+    
+                const $span = $("<span>").text(habit.name);
+                if (habit.completed) {
+                    $span.addClass("completed");
+                }
+    
+                // checkbox to mark : completed
+                const $checkbox = $("<input>").attr("type", "checkbox").prop("checked", habit.completed);
+                $checkbox.on("change", function() {
+                    habit.completed = $(this).prop("checked");
+                    updateDashboard();
+                    renderHabitList();
+                });
+    
+                $li.append($checkbox).append($span);
+                $habitList.append($li);
+            });
+        }
+    
+        // form submission of: add a new habit
+        $habitForm.on("submit", function(e) {
+            e.preventDefault();
+    
+            // Add new habit
+            const newHabit = {
+                name: $habitInput.val(),
+                completed: false
+            };
+            habits.push(newHabit);
+    
+            // Clear input
+            $habitInput.val("");
+    
+            // Update dashboard & habitsList
+            updateDashboard();
+            renderHabitList();
+        });
+    
+        // logout function
+        $logoutButton.on("click", function() {
+            alert("Logging out...");
+        });
+        // update dashboard & habitsList
+        updateDashboard();
+        renderHabitList();
+    });
+
+</script>
 </html>

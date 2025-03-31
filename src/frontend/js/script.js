@@ -4,7 +4,7 @@ async function requestRegister() {
     const password = document.getElementById('password').value;
     const msg = document.getElementById('message');
     try {
-        const response = await fetch('/auth/register', {  //  <-- Correct URL prefix
+        const response = await fetch('/auth/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -30,7 +30,7 @@ async function requestAppLogin() {
     const password = document.getElementById('password').value; // Get the password
     const msg = document.getElementById('message');
     try {
-        const response = await fetch('/auth/signin', {  //  <-- Correct URL prefix
+        const response = await fetch('/auth/signin', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -43,12 +43,15 @@ async function requestAppLogin() {
 
         if (response.ok) {
             localStorage.setItem('jwtToken', result.token);
-            window.location.href = "/dashboard.html";
+            window.location.href = "/homepage.html";
         } else {
-            msg.textContent = result.message; //Display error from the backend
+            msg.textContent = result.message;
         }
     } catch (error) {
         console.error('Error requesting login:', error);
         msg.textContent = 'An error occurred. Please try again.';
     }
+}
+async function checkUserLoginStatus() {
+    
 }
