@@ -15,7 +15,10 @@ $(document).ready(function () {
                     console.log("Signup successful! About to redirect to /frontend/pages/verify.html");
                     sessionStorage.setItem("token",JSON.stringify({verificationToken:response.verificationToken}));
                     // window.location.href = "../pages/verify.html";
-                    setTimeout(() => window.location.href = "verify.html", 1000);
+                    setTimeout(() => {
+                        console.log("Redirecting to verification page!");
+                        window.location.href = "verify.html";
+                    }, 1000);
                 }
             },
             error: function (xhr, status, error) {

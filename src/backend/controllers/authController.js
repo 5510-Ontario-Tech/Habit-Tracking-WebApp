@@ -3,6 +3,7 @@ import bcrypt from "bcrypt";
 import jwt  from "jsonwebtoken";
 import nodemailer from 'nodemailer';
   import { singupHash } from "../utils/addhashing.js";
+import Habit from "../models/habitschema.js"
 
 const transporter = nodemailer.createTransport({
   host: 'smtp.ethereal.email',
@@ -23,7 +24,7 @@ export const register = async (req, res) => {
       const hashedPassword = await singupHash(password, 10); // hashfunction is working
       const verificationToken = Math.random().toString(36).slice(2);
       const newUser = new User({
-        name,  
+        name,
         email,
         password: hashedPassword,
         verificationToken,
@@ -39,7 +40,7 @@ export const register = async (req, res) => {
       });
       result.password = undefined; // No hashed password returned!
       res.status(201).json({
-          Success: true,
+          success: true,
           message: "User successfully registered",
           verificationToken:verificationToken,
           result
@@ -89,4 +90,45 @@ export const signin = async (req, res) => {
         console.error(error);
         res.status(500).json({ message: 'Server error' });
     }
+};
+//Add Habits
+export const addHabits = async (req,res) => {
+  try{
+    const {habitName, habitDuration, createDate} = req.body;
+    const habit = new Habit({
+      habitName,
+      habitDuration,
+      createDate: new Date(),
+      isFinished:false
+    });
+    await habit.save();
+    res.status(201).json(habit);
+  }catch(error){
+    res.status(500).json({ error: 'Failed to save habit' });
+  }
+};
+// Get All Habits
+export const getHabits = async (req, res) => {
+  try {
+      const habits = await Habit.find();
+      res.json(habits);
+  } catch (error) {
+      res.status(500).json({ error: 'Failed to fetch habits' });
+  }
+};
+// Update habit
+export const updateHabit = async (req, res) => {
+  try {
+      const { id } = req.params;
+      const { isFinished } = req.body;
+      const habit = await Habit.findByIdAndUpdate(
+          id,
+          { isFinished },
+          { new: true }
+      );
+      if (!habit) return res.status(404).json({ error: 'Habit not found' });
+      res.json(habit);
+  } catch (error) {
+      res.status(500).json({ error: 'Failed to update habit' });
+  }
 };

@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="../js/jquery-3.7.1.min.js"></script>
     <script src="../js/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         $(document).ready(function () {
             const token = sessionStorage.getItem('jwtToken');
@@ -49,10 +50,9 @@
                 </div>
                 <nav class="dashboard-sidebar">
                     <ul>
-                        <li><img class="icon" src="/src/frontend/assets/home.png" alt="home"><button class="sidebar-btn" onclick="showSection('section1')">Dashboard</a></i></li>
-                        <li><img class="icon" src="/src/frontend/assets/lifestyle.png" alt="my-habits"><button class="sidebar-btn" onclick="window.location.href='#'">My Habits</a></li>
-                        <li><img class="icon" src="/src/frontend/assets/delete.png" alt="statistics"><button class="sidebar-btn" onclick="window.location.href='#'">Statistics</a></li>
-                        <li><img class="icon" src="/src/frontend/assets/web-page.png" alt="settings"><a href="#">settings</a></li>
+                        <li><img class="icon" src="/src/frontend/assets/lifestyle.png" alt="my-habits"><button class="sidebar-btn" onclick="showSection('habits')">My Habits</button></li>
+                        <li><img class="icon" src="/src/frontend/assets/delete.png" alt="statistics"><button class="sidebar-btn" onclick="showSection('statistics')">Statistics</button></li>
+                        <li><img class="icon" src="/src/frontend/assets/web-page.png" alt="settings"><button class="sidebar-btn" onclick="showSection('settings')">Settings</button></li>
                         <!-- <li><a href="#">Streaks</a></li> -->
                     </ul>
                 </nav>
@@ -93,88 +93,302 @@
             <h2 class="main">Settings</h2>
             <button id="logout-btn">Logout</button>
         </section>
-     
     </main>
+    </div>
+    </div>
+    <!-- Habit Card -->
+    <div class="habit-card" id="habit-card">
+        <h3>Add Habit</h3>
+        <input type="text" id="card-habit-name" placeholder="Habit Name" required>
+        <input type="number" id="card-habit-duration" placeholder="Duration (days)" required min="1">
+        <button id="save-habit-btn">Save</button>
+        <button id="close-card-btn">Close</button>
     </div>
 </body>
 <script>
     $(document).ready(function() {
-        // Elements- DOM
-        const $habitForm = $("#habit-form");
-        const $habitInput = $("#habit-input");
-        const $habitList = $("#habit-list");
-        const $totalHabits = $("#total-habits");
-        const $completedHabits = $("#completed-habits");
-        const $habitProgress = $("#habit-progress");
-        const $logoutButton = $("#logout-btn");
+        
+    //     // Elements- DOM
+    //     const $habitForm = $("#habit-form");
+    //     const $habitInput = $("#habit-input");
+    //     const $habitList = $("#habit-list");
+    //     const $totalHabits = $("#total-habits");
+    //     const $completedHabits = $("#completed-habits");
+    //     const $habitProgress = $("#habit-progress");
+    //     const $logoutButton = $("#logout-btn");
     
-        // habitDatabase
-        let habits = [];
+    //     // habitDatabase
+    //     let habits = [];
     
-        // F(n) : update my dashboard
-        function updateDashboard() {
-            const total = habits.length;
-            const completed = habits.filter(habit => habit.completed).length;
-            const progress = total > 0 ? Math.round((completed / total) * 100) : 0;
+    //     // F(n) : update my dashboard
+    //     function updateDashboard() {
+    //         const total = habits.length;
+    //         const completed = habits.filter(habit => habit.completed).length;
+    //         const progress = total > 0 ? Math.round((completed / total) * 100) : 0;
     
-            // Update--> dashboard stats
-            $totalHabits.text(total);
-            $completedHabits.text(completed);
-            $habitProgress.text(`${progress}%`);
-        }
+    //         // Update--> dashboard stats
+    //         $totalHabits.text(total);
+    //         $completedHabits.text(completed);
+    //         $habitProgress.text(`${progress}%`);
+    //     }
     
-        // Render the habit list
-        function renderHabitList() {
-            $habitList.empty();
-            habits.forEach((habit, index) => {
-                const $li = $("<li>").addClass("habit-item");
+    //     // Render the habit list
+    //     function renderHabitList() {
+    //         $habitList.empty();
+    //         habits.forEach((habit, index) => {
+    //             const $li = $("<li>").addClass("habit-item");
                   
     
-                const $span = $("<span>").text(habit.name);
-                if (habit.completed) {
-                    $span.addClass("completed");
+    //             const $span = $("<span>").text(habit.name);
+    //             if (habit.completed) {
+    //                 $span.addClass("completed");
+    //             }
+    
+    //             // checkbox to mark : completed
+    //             const $checkbox = $("<input>").attr("type", "checkbox").prop("checked", habit.completed);
+    //             $checkbox.on("change", function() {
+    //                 habit.completed = $(this).prop("checked");
+    //                 updateDashboard();
+    //                 renderHabitList();
+    //             });
+    
+    //             $li.append($checkbox).append($span);
+    //             $habitList.append($li);
+    //         });
+    //     }
+    
+    //     // form submission of: add a new habit
+    //     $habitForm.on("submit", function(e) {
+    //         e.preventDefault();
+    
+    //         // Add new habit
+    //         const newHabit = {
+    //             name: $habitInput.val(),
+    //             completed: false
+    //         };
+    //         habits.push(newHabit);
+    
+    //         // Clear input
+    //         $habitInput.val("");
+    
+    //         // Update dashboard & habitsList
+    //         updateDashboard();
+    //         renderHabitList();
+    //     });
+    
+    //     // logout function
+    //     $logoutButton.on("click", function() {
+    //         alert("Logging out...");
+    //     });
+    //     // update dashboard & habitsList
+    //     updateDashboard();
+    //     renderHabitList();
+    const $mainContent = $("#main-content");
+    const $habitCard = $("#habit-card");
+    const $cardHabitName = $("#card-habit-name");
+    const $cardHabitDuration = $("#card-habit-duration");
+    const $saveHabitBtn = $("#save-habit-btn");
+    const $closeCardBtn = $("#close-card-btn");
+
+    let habitChart;
+
+    // Fetch habits from backend
+    function fetchHabits(callback) {
+        $.ajax({
+            url: '/habits',
+            type: 'GET',
+            headers: { 'Authorization': 'Bearer ' + token },
+            success: function (data) {
+                callback(data);
+            },
+            error: function (xhr) {
+                console.error("Error fetching habits:", xhr);
+                if (xhr.status === 401 || xhr.status === 403) {
+                    window.location.href = 'signin.html';
                 }
-    
-                // checkbox to mark : completed
-                const $checkbox = $("<input>").attr("type", "checkbox").prop("checked", habit.completed);
-                $checkbox.on("change", function() {
-                    habit.completed = $(this).prop("checked");
-                    updateDashboard();
-                    renderHabitList();
+            }
+        });
+    }
+
+    // Render My Habits section
+    function renderHabits(habits) {
+        const total = habits.length;
+        const completed = habits.filter(habit => habit.isFinished).length;
+        const progress = total > 0 ? Math.round((completed / total) * 100) : 0;
+
+        $mainContent.html(`
+            <h2 class="main">My Habits</h2>
+            <div class="habit-summary">
+                <div class="summary-card">
+                    <h3>Total Habits</h3>
+                    <p id="total-habits">${total}</p>
+                </div>
+                <div class="summary-card">
+                    <h3>Habits Completed</h3>
+                    <p id="completed-habits">${completed}</p>
+                </div>
+                <div class="summary-card">
+                    <h3>Progress</h3>
+                    <p id="habit-progress">${progress}%</p>
+                </div>
+            </div>
+            <button id="add-habit-btn" class="add-habit">Add New Habit</button>
+            <ul id="habit-list"></ul>
+        `);
+
+        const $habitList = $("#habit-list");
+        habits.forEach(habit => {
+            const $li = $("<li>").addClass("habit-item");
+            const $span = $("<span>").text(`${habit.name} (${habit.duration} days)`);
+            if (habit.isFinished) {
+                $span.addClass("completed");
+            }
+
+            const $checkbox = $("<input>").attr("type", "checkbox").prop("checked", habit.isFinished);
+            $checkbox.on("change", function () {
+                $.ajax({
+                    url: `/habits/${habit._id}`,
+                    type: 'PATCH',
+                    headers: { 'Authorization': 'Bearer ' + token },
+                    contentType: 'application/json',
+                    data: JSON.stringify({ isFinished: $(this).prop("checked") }),
+                    success: function () {
+                        renderSection('habits'); // Re-render section
+                    },
+                    error: function (xhr) {
+                        console.error("Error updating habit:", xhr);
+                        alert("Failed to update habit.");
+                    }
                 });
-    
-                $li.append($checkbox).append($span);
-                $habitList.append($li);
+            });
+
+            $li.append($checkbox).append($span);
+            $habitList.append($li);
+        });
+
+        $("#add-habit-btn").on("click", function () {
+            $habitCard.show();
+            $cardHabitName.val("");
+            $cardHabitDuration.val("");
+        });
+    }
+
+    // Render Statistics section
+    function renderStatistics(habits) {
+        $mainContent.html(`
+            <h2 class="main">Statistics</h2>
+            <canvas id="habit-chart" width="400" height="400"></canvas>
+        `);
+
+        const completed = habits.filter(habit => habit.isFinished).length;
+        const notCompleted = habits.length - completed;
+
+        if (habitChart) {
+            habitChart.destroy();
+        }
+
+        const ctx = document.getElementById('habit-chart').getContext('2d');
+        habitChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['Completed', 'Not Completed'],
+                datasets: [{
+                    data: [completed, notCompleted],
+                    backgroundColor: ['#28a745', '#dc3545'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { position: 'top' },
+                    title: { display: true, text: 'Habit Completion Stats' }
+                }
+            }
+        });
+    }
+
+    // Render Settings section
+    function renderSettings() {
+        $mainContent.html(`
+            <h2 class="main">Settings</h2>
+            <label>
+                <input type="checkbox" id="dark-mode-toggle"> Dark Mode
+            </label>
+            <button id="logout-btn">Logout</button>
+        `);
+
+        const $darkModeToggle = $("#dark-mode-toggle");
+        const $logoutButton = $("#logout-btn");
+
+        if (localStorage.getItem("darkMode") === "enabled") {
+            $darkModeToggle.prop("checked", true);
+            $("body").addClass("dark-mode");
+        }
+
+        $darkModeToggle.on("change", function () {
+            if ($(this).is(":checked")) {
+                $("body").addClass("dark-mode");
+                localStorage.setItem("darkMode", "enabled");
+            } else {
+                $("body").removeClass("dark-mode");
+                localStorage.setItem("darkMode", "disabled");
+            }
+        });
+
+        $logoutButton.on("click", function () {
+            sessionStorage.removeItem('jwtToken');
+            window.location.href = 'signin.html';
+        });
+    }
+
+    // Save new habit
+    $saveHabitBtn.on("click", function () {
+        const name = $cardHabitName.val();
+        const duration = parseInt($cardHabitDuration.val());
+
+        if (name && duration > 0) {
+            $.ajax({
+                url: '/addHabit',
+                type: 'POST',
+                headers: { 'Authorization': 'Bearer ' + token },
+                contentType: 'application/json',
+                data: JSON.stringify({ name, duration }),
+                success: function () {
+                    $habitCard.hide();
+                    renderSection('habits');
+                },
+                error: function (xhr) {
+                    console.error("Error adding habit:", xhr);
+                    alert("Failed to add habit.");
+                }
             });
         }
-    
-        // form submission of: add a new habit
-        $habitForm.on("submit", function(e) {
-            e.preventDefault();
-    
-            // Add new habit
-            const newHabit = {
-                name: $habitInput.val(),
-                completed: false
-            };
-            habits.push(newHabit);
-    
-            // Clear input
-            $habitInput.val("");
-    
-            // Update dashboard & habitsList
-            updateDashboard();
-            renderHabitList();
-        });
-    
-        // logout function
-        $logoutButton.on("click", function() {
-            alert("Logging out...");
-        });
-        // update dashboard & habitsList
-        updateDashboard();
-        renderHabitList();
     });
+
+    // Close habit card
+    $closeCardBtn.on("click", function () {
+        $habitCard.hide();
+    });
+
+    // Render section based on sidebar click
+    window.renderSection = function (sectionId) {
+        if (sectionId === 'habits' || sectionId === 'statistics') {
+            fetchHabits(data => {
+                if (sectionId === 'habits') {
+                    renderHabits(data);
+                } else if (sectionId === 'statistics') {
+                    renderStatistics(data);
+                }
+            });
+        } else if (sectionId === 'settings') {
+            renderSettings();
+        }
+    };
+
+    // Initial render
+    renderSection('habits');
+});
 
 </script>
 </html>

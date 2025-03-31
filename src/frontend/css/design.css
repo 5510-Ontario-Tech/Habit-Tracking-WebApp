@@ -964,3 +964,89 @@ text-decoration: underline;
 .social-media-icons i {
   font-size: 24px;
 }
+#main-content {
+    flex: 1;
+    padding: 20px;
+}
+
+/* Habit Card */
+.habit-card {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    width: 300px;
+    z-index: 1000;
+    display: none;
+}
+
+.habit-card h3 {
+    margin: 0 0 15px;
+    font-size: 18px;
+    color: #333;
+}
+
+.habit-card input {
+    display: block;
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.habit-card button {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+#save-habit-btn {
+    background: #28a745;
+    color: white;
+}
+
+#close-card-btn {
+    background: #dc3545;
+    color: white;
+}
+
+.add-habit {
+    background: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px 0;
+}
+
+/* Dark Mode */
+body.dark-mode {
+    background: #1a1a1a;
+    color: #ffffff;
+}
+
+body.dark-mode .navbar,
+body.dark-mode .sidebar,
+body.dark-mode #main-content,
+body.dark-mode .habit-card {
+    background: #2c2c2c;
+    color: #ffffff;
+}
+
+body.dark-mode .summary-card,
+body.dark-mode .habit-item {
+    background: #3a3a3a;
+    color: #ffffff;
+}
+
+body.dark-mode .horizontal-line {
+    background-color: #ffffff;
+}

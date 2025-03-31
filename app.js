@@ -40,7 +40,7 @@ app.use(express.static(__dirname, {
     extensions: ["webp", "jpg", "svg"],
 }));
 
-app.use('/auth', authRoutes);  //  /auth/register, /auth/verify-email
+app.use('/auth', authRoutes);  //  /auth/register, /auth/verify-email //auth/signin
 app.use('/auth', signinauthRoutes); // /auth/signin
 
 app.get("/dashboard.html", authMiddleware, (req, res) => {

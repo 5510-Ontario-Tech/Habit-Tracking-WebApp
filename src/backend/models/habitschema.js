@@ -2,11 +2,11 @@
 import mongoose from "mongoose";
 
 const habitSchema = new mongoose.Schema({
-    name: {
+    habitName: {
         type: String,
         required: true
     },
-    duration: {
+    habitDuration: {
         type: Number,
         required: true
     },
